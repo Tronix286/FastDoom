@@ -124,8 +124,6 @@ extern int usemouse;
 #define PEL_DATA 0x3c9
 #define PEL_MASK 0x3c6
 
-boolean grmode;
-
 #define VBLCOUNTER 34000 // hardware tics to a frame
 
 #define TIMERINT 8
@@ -412,7 +410,6 @@ void I_FinishUpdate(void)
 //
 void I_InitGraphics_ModeY(void)
 {
-    grmode = true;
     regs.w.ax = 0x13;
     int386(0x10, (union REGS *)&regs, &regs);
     pcscreen = currentscreen = (byte *)0xa0000;
@@ -437,7 +434,6 @@ void I_InitGraphics_ModeY(void)
 
 void I_InitGraphics_13h(void)
 {
-	grmode = true;
 	regs.w.ax = 0x13;
 	int386(0x10, (union REGS *)&regs, &regs);
 	pcscreen = destscreen = (byte *)0xa0000;
