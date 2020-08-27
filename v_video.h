@@ -38,14 +38,15 @@
 // Screen 1 is an extra buffer.
 
 extern byte *screens[5];
-
+extern byte *screen;
 extern int dirtybox[4];
 
 extern byte gammatable[5][256];
 extern int usegamma;
 
 // Allocates buffer screens, call before R_Init.
-void V_Init(void);
+void V_Init_ModeY(void);
+void V_Init_13h(void);
 
 void V_CopyRect(int srcx,
                 int srcy,

@@ -31,7 +31,7 @@
 
 // Each screen is [SCREENWIDTH*SCREENHEIGHT];
 byte *screens[5];
-
+byte *screen;
 int dirtybox[4];
 
 // Now where did these came from?
@@ -390,7 +390,7 @@ void V_DrawBlock(int x,
 //
 // V_Init
 //
-void V_Init(void)
+void V_Init_ModeY(void)
 {
     int i;
     byte *base;
@@ -401,4 +401,10 @@ void V_Init(void)
 
     for (i = 0; i < 4; i++)
         screens[i] = base + i * SCREENWIDTH * SCREENHEIGHT;
+}
+
+void V_Init_13h(void)
+{
+	// I_AllocLow will put screen in low dos memory on PCs.
+	screen = I_AllocLow(SCREENWIDTH*SCREENHEIGHT);
 }

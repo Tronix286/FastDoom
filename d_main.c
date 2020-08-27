@@ -919,7 +919,7 @@ void D_DoomMain(void)
 
     // init subsystems
     printf("V_Init: allocate screens.\n");
-    V_Init();
+    V_Init_ModeY();
 
     printf("M_LoadDefaults: Load system defaults.\n");
     M_LoadDefaults(); // load before initing other systems

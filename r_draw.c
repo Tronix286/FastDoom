@@ -55,12 +55,8 @@ int scaledviewwidth;
 int viewheight;
 int viewwindowx;
 int viewwindowy;
+byte *ylookup[MAXHEIGHT];
 int columnofs[MAXWIDTH];
-
-// Color tables for different players,
-//  translate a limited part to another
-//  (color ramps used for  suit colors).
-//
 
 #define SC_INDEX 0x3C4
 #define SC_RESET 0
@@ -1019,3 +1015,94 @@ void R_DrawViewBorder(void)
         frac += fracstep;
     } while (count--);
 }*/
+
+// VGA MODE 13h
+
+void R_DrawColumn_13h(void)
+{
+    int count;
+    byte *dest;
+    fixed_t frac, fracstep;
+
+    count = dc_yh - dc_yl;
+    if (count < 0)
+        return;
+
+    dest = ylookup[dc_yl] + columnofs[dc_x];
+
+    fracstep = dc_iscale;
+    frac = dc_texturemid + (dc_yl - centery) * fracstep;
+
+    do
+    {
+        *dest = dc_colormap[dc_source[(frac >> FRACBITS) & 127]];
+        dest += SCREENWIDTH;
+        frac += fracstep;
+    } while (count--);
+}
+
+void R_DrawFuzzColumn_13h(void)
+{
+    int count;
+    byte *dest;
+    fixed_t frac, fracstep;
+
+    if (!dc_yl)
+        dc_yl = 1;
+    if (dc_yh == viewheight - 1)
+        dc_yh = viewheight - 2;
+
+    count = dc_yh - dc_yl;
+    if (count < 0)
+        return;
+
+    dest = ylookup[dc_yl] + columnofs[dc_x];
+
+    fracstep = dc_iscale;
+    frac = dc_texturemid + (dc_yl - centery) * fracstep;
+
+    {
+        *dest = colormaps[6 * 256 + dest[fuzzoffset[fuzzpos]]];
+        if (++fuzzpos == FUZZTABLE)
+            fuzzpos = 0;
+        dest += SCREENWIDTH;
+        frac += fracstep;
+    }
+    while (count--)
+        ;
+}
+
+void R_DrawSpan_13h(void)
+{
+    fixed_t xfrac, yfrac;
+    byte *dest;
+    int count, spot;
+
+    xfrac = ds_xfrac;
+    yfrac = ds_yfrac;
+
+    dest = ylookup[ds_y] + columnofs[ds_x1];
+    count = ds_x2 - ds_x1;
+    do
+    {
+        spot = ((yfrac >> (16 - 6)) & (63 * 64)) + ((xfrac >> 16) & 63);
+        *dest++ = ds_colormap[ds_source[spot]];
+        xfrac += ds_xstep;
+        yfrac += ds_ystep;
+    } while (count--);
+}
+
+void R_InitBuffer_13h(int width, int height)
+{
+    int i;
+
+    viewwindowx = (SCREENWIDTH - width) >> 1;
+    for (i = 0; i < width; i++)
+        columnofs[i] = viewwindowx + i;
+    if (width == SCREENWIDTH)
+        viewwindowy = 0;
+    else
+        viewwindowy = (SCREENHEIGHT - SBARHEIGHT - height) >> 1;
+    for (i = 0; i < height; i++)
+        ylookup[i] = screen + (i + viewwindowy) * SCREENWIDTH;
+}
