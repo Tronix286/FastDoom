@@ -572,58 +572,81 @@ void R_ExecuteSetViewSize(void)
     centeryfrac = centery << FRACBITS;
     projection = centerxfrac;
     iprojection = FixedDiv(FRACUNIT, projection);
-    
-    switch (detailshift)
+
+    if (mode13h)
     {
-    case 0:
-        colfunc = basecolfunc = R_DrawColumn;
+        colfunc = basecolfunc = R_DrawColumn_13h;
 
         if (untexturedSurfaces)
             spanfunc = R_DrawSpanFlat;
         else
-            spanfunc = R_DrawSpan;
+            spanfunc = R_DrawColumn_13h;
 
         if (flatSky)
             skyfunc = R_DrawSkyFlat;
         else
-            skyfunc = R_DrawColumn;
-        break;
-    case 1:
-        colfunc = basecolfunc = R_DrawColumnLow;
+            skyfunc = R_DrawColumn_13h;
 
-        if (untexturedSurfaces)
-            spanfunc = R_DrawSpanFlatLow;
+        if (flatShadows)
+            fuzzcolfunc = R_DrawFuzzColumnFast;
+        else if (saturnShadows)
+            fuzzcolfunc = R_DrawFuzzColumnSaturn;
         else
-            spanfunc = R_DrawSpanLow;
-        
-        if (flatSky)
-            skyfunc = R_DrawSkyFlatLow;
-        else
-            skyfunc = R_DrawColumnLow;
-
-        break;
-    case 2:
-        colfunc = basecolfunc = R_DrawColumnPotato;
-
-        if (untexturedSurfaces)
-            spanfunc = R_DrawSpanFlatPotato;
-        else
-            spanfunc = R_DrawSpanPotato;
-
-        if (flatSky)
-            skyfunc = R_DrawSkyFlatPotato;
-        else
-            skyfunc = R_DrawColumnPotato;
-
-        break;
+            fuzzcolfunc = R_DrawFuzzColumn_13h;
     }
-
-    if (flatShadows)
-        fuzzcolfunc = R_DrawFuzzColumnFast;
-    else if (saturnShadows)
-        fuzzcolfunc = R_DrawFuzzColumnSaturn;
     else
-        fuzzcolfunc = R_DrawFuzzColumn;
+    {
+        switch (detailshift)
+        {
+        case 0:
+            colfunc = basecolfunc = R_DrawColumn;
+
+            if (untexturedSurfaces)
+                spanfunc = R_DrawSpanFlat;
+            else
+                spanfunc = R_DrawSpan;
+
+            if (flatSky)
+                skyfunc = R_DrawSkyFlat;
+            else
+                skyfunc = R_DrawColumn;
+            break;
+        case 1:
+            colfunc = basecolfunc = R_DrawColumnLow;
+
+            if (untexturedSurfaces)
+                spanfunc = R_DrawSpanFlatLow;
+            else
+                spanfunc = R_DrawSpanLow;
+
+            if (flatSky)
+                skyfunc = R_DrawSkyFlatLow;
+            else
+                skyfunc = R_DrawColumnLow;
+
+            break;
+        case 2:
+            colfunc = basecolfunc = R_DrawColumnPotato;
+
+            if (untexturedSurfaces)
+                spanfunc = R_DrawSpanFlatPotato;
+            else
+                spanfunc = R_DrawSpanPotato;
+
+            if (flatSky)
+                skyfunc = R_DrawSkyFlatPotato;
+            else
+                skyfunc = R_DrawColumnPotato;
+            break;
+        }
+
+        if (flatShadows)
+            fuzzcolfunc = R_DrawFuzzColumnFast;
+        else if (saturnShadows)
+            fuzzcolfunc = R_DrawFuzzColumnSaturn;
+        else
+            fuzzcolfunc = R_DrawFuzzColumn;
+    }
 
     R_InitBuffer(scaledviewwidth, viewheight);
 

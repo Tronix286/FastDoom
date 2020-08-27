@@ -342,8 +342,12 @@ void D_DoomLoop(void)
     if (demorecording)
         G_BeginRecording();
 
-    I_InitGraphics_ModeY();
-
+    if (mode13h){
+        I_InitGraphics_13h();
+    }else{
+        I_InitGraphics_ModeY();
+    }
+    
     while (1)
     {
         // process one or more tics
@@ -923,8 +927,12 @@ void D_DoomMain(void)
 
     // init subsystems
     printf("V_Init: allocate screens.\n");
-    V_Init_ModeY();
-
+    if (mode13h){
+        V_Init_13h();
+    }else{
+        V_Init_ModeY();
+    }
+    
     printf("M_LoadDefaults: Load system defaults.\n");
     M_LoadDefaults(); // load before initing other systems
 

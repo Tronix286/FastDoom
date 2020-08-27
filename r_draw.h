@@ -50,6 +50,10 @@ void R_DrawColumnFlat(void);
 void R_DrawColumnFlatLow(void);
 void R_DrawColumnFlatPotato(void);
 
+void R_DrawColumn_13h(void);
+void R_DrawSpan_13h(void);
+void R_DrawFuzzColumn_13h(void);
+
 void R_VideoErase(unsigned ofs,
                   int count);
 
