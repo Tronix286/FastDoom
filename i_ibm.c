@@ -410,7 +410,7 @@ void I_FinishUpdate(void)
 //
 // I_InitGraphics
 //
-void I_InitGraphics(void)
+void I_InitGraphics_ModeY(void)
 {
     grmode = true;
     regs.w.ax = 0x13;
@@ -433,6 +433,15 @@ void I_InitGraphics(void)
     outp(GC_INDEX, GC_READMAP);
 
     I_SetPalette(W_CacheLumpName("PLAYPAL", PU_CACHE));
+}
+
+void I_InitGraphics_13h(void)
+{
+	grmode = true;
+	regs.w.ax = 0x13;
+	int386(0x10, (union REGS *)&regs, &regs);
+	pcscreen = destscreen = (byte *)0xa0000;
+	I_SetPalette(W_CacheLumpName("PLAYPAL", PU_CACHE));
 }
 
 //

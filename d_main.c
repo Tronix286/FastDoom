@@ -340,7 +340,7 @@ void D_DoomLoop(void)
     if (demorecording)
         G_BeginRecording();
 
-    I_InitGraphics();
+    I_InitGraphics_ModeY();
 
     while (1)
     {
