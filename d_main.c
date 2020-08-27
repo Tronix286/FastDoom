@@ -96,6 +96,8 @@ boolean lowSound;
 boolean waitInit;
 boolean noMelt;
 
+boolean mode13h;
+
 boolean uncappedFPS;
 
 boolean drone;
@@ -766,6 +768,8 @@ void D_DoomMain(void)
     lowSound = M_CheckParm("-lowsound");
 
     showFPS = M_CheckParm("-fps");
+
+    mode13h = M_CheckParm("-mode13h");
 
     unlimitedRAM = M_CheckParm("-ram");
     nearSprites = M_CheckParm("-near");
