@@ -271,7 +271,7 @@ void D_Display(void)
     if (gamestate == GS_LEVEL && oldgamestate != GS_LEVEL)
     {
         viewactivestate = false; // view was not active
-        R_FillBackScreen();      // draw the pattern into the back screen
+        //R_FillBackScreen();      // draw the pattern into the back screen
     }
 
     // see if the border needs to be updated to the screen
@@ -298,7 +298,7 @@ void D_Display(void)
             y = 4;
         else
             y = viewwindowy + 4;
-        V_DrawPatchDirect(viewwindowx + (scaledviewwidth - 68) / 2,
+        V_DrawPatch(viewwindowx + (scaledviewwidth - 68) / 2,
                           y, 0, W_CacheLumpName("M_PAUSE", PU_CACHE));
     }
 
@@ -309,7 +309,12 @@ void D_Display(void)
     // normal update
     if (!wipe)
     {
-        I_FinishUpdate(); // page flip or blit buffer
+        if (mode13h){
+            I_Update_13h();
+        }else{
+            I_FinishUpdate(); // page flip or blit buffer
+        }
+        
         return;
     }
 
@@ -326,9 +331,15 @@ void D_Display(void)
         } while (!tics);
         wipestart = ticcount;
         done = wipe_ScreenWipe(wipe_Melt, 0, 0, SCREENWIDTH, SCREENHEIGHT, tics);
-        I_UpdateNoBlit();
+        if (!mode13h)
+            I_UpdateNoBlit();
         M_Drawer();       // menu is drawn even on top of wipes
-        I_FinishUpdate(); // page flip or blit buffer
+        
+        if (mode13h){
+            I_Update_13h();
+        }else{
+            I_FinishUpdate(); // page flip or blit buffer
+        }    
     } while (!done);
 }
 

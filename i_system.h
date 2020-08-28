@@ -117,6 +117,8 @@ void I_SetPalette(byte *palette);
 void I_UpdateNoBlit(void);
 void I_FinishUpdate(void);
 
+void I_Update_13h(void);
+
 // Wait for vertical retrace or pause a bit.
 void I_WaitVBL(int count);
 

@@ -580,7 +580,7 @@ void R_ExecuteSetViewSize(void)
         if (untexturedSurfaces)
             spanfunc = R_DrawSpanFlat;
         else
-            spanfunc = R_DrawColumn_13h;
+            spanfunc = R_DrawSpan_13h;
 
         if (flatSky)
             skyfunc = R_DrawSkyFlat;

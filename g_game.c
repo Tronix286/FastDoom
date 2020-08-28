@@ -880,7 +880,11 @@ void G_DoLoadGame(void)
         R_ExecuteSetViewSize();
 
     // draw the pattern into the back screen
-    R_FillBackScreen();
+    if (mode13h){
+
+    }else{
+        R_FillBackScreen();
+    }
 }
 
 //
@@ -910,7 +914,11 @@ void G_DoSaveGame(void)
         sprintf(name, SAVEGAMENAME "%d.dsg", savegameslot);
     description = savedescription;
 
-    save_p = savebuffer = screens[1] + 0x4000;
+    if (mode13h){
+        save_p = savebuffer = screen + 0x4000;
+    }else{
+        save_p = savebuffer = screens[1] + 0x4000;
+    }
 
     memcpy(save_p, description, SAVESTRINGSIZE);
     save_p += SAVESTRINGSIZE;
@@ -947,7 +955,11 @@ void G_DoSaveGame(void)
     players.message = GGSAVED;
 
     // draw the pattern into the back screen
-    R_FillBackScreen();
+    if (mode13h){
+
+    }else{
+        R_FillBackScreen();
+    }
 }
 
 //

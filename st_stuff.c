@@ -440,7 +440,7 @@ void ST_refreshBackground(void)
 	if (st_statusbaron)
 	{
 		V_DrawPatch(ST_X, 0, BG, sbar);
-		V_CopyRect(ST_X, 0, BG, ST_WIDTH, ST_HEIGHT, ST_X, ST_Y, FG);
+		//V_CopyRect(ST_X, 0, BG, ST_WIDTH, ST_HEIGHT, ST_X, ST_Y, FG);
 	}
 }
 
@@ -1303,5 +1303,5 @@ void ST_Init(void)
 {
 	veryfirsttime = 0;
 	ST_loadData();
-	screens[4] = (byte *)Z_Malloc(ST_WIDTH * ST_HEIGHT, PU_STATIC, 0);
+	//screens[4] = (byte *)Z_Malloc(ST_WIDTH * ST_HEIGHT, PU_STATIC, 0);
 }

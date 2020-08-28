@@ -797,8 +797,7 @@ void R_DrawSpanFlatPotato(void)
 //  for getting the framebuffer address
 //  of a pixel to draw.
 //
-void R_InitBuffer(int width,
-                  int height)
+void R_InitBuffer(int width, int height)
 {
     int i;
 
@@ -816,6 +815,12 @@ void R_InitBuffer(int width,
         viewwindowy = 0;
     else
         viewwindowy = (SCREENHEIGHT - SBARHEIGHT - height) >> 1;
+
+    if (mode13h)
+    {
+        for (i = 0; i < height; i++)
+            ylookup[i] = screen + (i + viewwindowy) * SCREENWIDTH;
+    }
 }
 
 //
@@ -850,7 +855,13 @@ void R_FillBackScreen(void)
         name = name1;
 
     src = W_CacheLumpName(name, PU_CACHE);
-    dest = screens[1];
+    
+    if (mode13h){
+        dest = screen;
+    }else{
+        dest = screens[1];
+    }
+    
 
     for (y = 0; y < SCREENHEIGHT - SBARHEIGHT; y++)
     {
@@ -911,7 +922,10 @@ void R_FillBackScreen(void)
         outp(SC_INDEX + 1, 1 << i);
 
         dest = (byte *)0xac000;
-        src = screens[1] + i;
+        if (mode13h)
+            src = screen + i;
+        else
+            src = screens[1] + i;
         do
         {
             *dest++ = *src;
@@ -1090,19 +1104,4 @@ void R_DrawSpan_13h(void)
         xfrac += ds_xstep;
         yfrac += ds_ystep;
     } while (count--);
-}
-
-void R_InitBuffer_13h(int width, int height)
-{
-    int i;
-
-    viewwindowx = (SCREENWIDTH - width) >> 1;
-    for (i = 0; i < width; i++)
-        columnofs[i] = viewwindowx + i;
-    if (width == SCREENWIDTH)
-        viewwindowy = 0;
-    else
-        viewwindowy = (SCREENHEIGHT - SBARHEIGHT - height) >> 1;
-    for (i = 0; i < height; i++)
-        ylookup[i] = screen + (i + viewwindowy) * SCREENWIDTH;
 }

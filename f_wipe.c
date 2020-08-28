@@ -220,7 +220,12 @@ int wipe_StartScreen(int x,
                      int width,
                      int height)
 {
-    wipe_scr_start = screens[2];
+    if (mode13h){
+        wipe_scr_start = screen;
+    }else{
+        wipe_scr_start = screens[2];
+    }
+    
     I_ReadScreen(wipe_scr_start);
     return 0;
 }
@@ -230,7 +235,11 @@ int wipe_EndScreen(int x,
                    int width,
                    int height)
 {
-    wipe_scr_end = screens[3];
+    if (mode13h){
+        wipe_scr_end = screen;
+    }else{
+        wipe_scr_end = screens[3];
+    }
     I_ReadScreen(wipe_scr_end);
     V_DrawBlock(x, y, 0, width, height, wipe_scr_start); // restore start scr.
     return 0;
@@ -255,7 +264,12 @@ int wipe_ScreenWipe(int wipeno,
     if (!go)
     {
         go = 1;
-        wipe_scr = screens[0];
+        if (mode13h){
+            wipe_scr = screen;
+        }else{
+            wipe_scr = screens[0];
+        }
+        
         (*wipes[wipeno * 3])(width, height, ticks);
     }
 

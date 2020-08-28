@@ -26,6 +26,9 @@
 #include "r_local.h"
 #include "r_sky.h"
 
+
+#include "i_debug.h"
+
 // OPTIMIZE: closed two sided lines as single sided
 
 // True if any of the segs textures might be visible.
@@ -269,7 +272,7 @@ void R_RenderSegLoop(void)
 			dc_yh = yh;
 			dc_texturemid = rw_midtexturemid;
 			dc_source = R_GetColumn(midtexture, texturecolumn);
-			colfunc();
+			R_DrawColumn_13h();
 			cc_rwx = viewheight;
 			fc_rwx = -1;
 		}
@@ -291,7 +294,7 @@ void R_RenderSegLoop(void)
 					dc_yh = mid;
 					dc_texturemid = rw_toptexturemid;
 					dc_source = R_GetColumn(toptexture, texturecolumn);
-					colfunc();
+					R_DrawColumn_13h();
 					cc_rwx = mid;
 				}
 				else
@@ -321,7 +324,7 @@ void R_RenderSegLoop(void)
 					dc_texturemid = rw_bottomtexturemid;
 					dc_source = R_GetColumn(bottomtexture,
 											texturecolumn);
-					colfunc();
+					R_DrawColumn_13h();
 					fc_rwx = mid;
 				}
 				else

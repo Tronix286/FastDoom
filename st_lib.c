@@ -82,7 +82,7 @@ void STlib_drawNum(st_number_t *n,
     // clear the area
     x = n->x - numdigits * w;
 
-    V_CopyRect(x, n->y - ST_Y, BG, w * numdigits, h, x, n->y, FG);
+    //V_CopyRect(x, n->y - ST_Y, BG, w * numdigits, h, x, n->y, FG);
 
     // if non-number, do not draw it
     if (num == 1994)
@@ -91,14 +91,14 @@ void STlib_drawNum(st_number_t *n,
     x = n->x;
 
     // in the special case of 0, you draw 0
-    if (!num)
-        V_DrawPatch(x - w, n->y, FG, n->p[0]);
+    //if (!num)
+    //    V_DrawPatch(x - w, n->y, FG, n->p[0]);
 
     // draw the new number
     while (num && numdigits--)
     {
         x -= w;
-        V_DrawPatch(x, n->y, FG, n->p[num % 10]);
+    //    V_DrawPatch(x, n->y, FG, n->p[num % 10]);
         num /= 10;
     }
 }
@@ -127,8 +127,8 @@ void STlib_initPercent(st_percent_t *p,
 void STlib_updatePercent(st_percent_t *per,
                          int refresh)
 {
-    if (refresh && *per->n.on)
-        V_DrawPatch(per->n.x, per->n.y, FG, per->p);
+    //if (refresh && *per->n.on)
+    //    V_DrawPatch(per->n.x, per->n.y, FG, per->p);
 
     STlib_updateNum(&per->n, refresh);
 }
@@ -165,7 +165,7 @@ void STlib_updateMultIcon(st_multicon_t *mi,
             w = SHORT(mi->p[mi->oldinum]->width);
             h = SHORT(mi->p[mi->oldinum]->height);
 
-            V_CopyRect(x, y - ST_Y, BG, w, h, x, y, FG);
+            //V_CopyRect(x, y - ST_Y, BG, w, h, x, y, FG);
         }
         V_DrawPatch(mi->x, mi->y, FG, mi->p[*mi->inum]);
         mi->oldinum = *mi->inum;
@@ -204,8 +204,8 @@ void STlib_updateBinIcon(st_binicon_t *bi,
 
         if (*bi->val)
             V_DrawPatch(bi->x, bi->y, FG, bi->p);
-        else
-            V_CopyRect(x, y - ST_Y, BG, w, h, x, y, FG);
+        //else
+        //    V_CopyRect(x, y - ST_Y, BG, w, h, x, y, FG);
 
         bi->oldval = *bi->val;
     }

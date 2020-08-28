@@ -334,8 +334,12 @@ void F_TextWrite(void)
 
 	// erase the entire screen to a tiled background
 	src = W_CacheLumpName(finaleflat, PU_CACHE);
-	dest = screens[0];
-
+	if (mode13h){
+		dest = screen;
+	}else{
+		dest = screens[0];
+	}
+	
 	for (y = 0; y < SCREENHEIGHT; y++)
 	{
 		for (x = 0; x < SCREENWIDTH / 64; x++)
@@ -679,10 +683,10 @@ void F_CastDrawer(void)
 	flip = (boolean)sprframe->flip[0];
 
 	patch = W_CacheLumpNum(lump + firstspritelump, PU_CACHE);
-	if (flip)
-		V_DrawPatchFlipped(160, 170, 0, patch);
-	else
-		V_DrawPatch(160, 170, 0, patch);
+	//if (flip)
+	//	V_DrawPatchFlipped(160, 170, 0, patch);
+	//else
+	//	V_DrawPatch(160, 170, 0, patch);
 }
 
 //
@@ -699,8 +703,12 @@ void F_DrawPatchCol(int x,
 	int count;
 
 	column = (column_t *)((byte *)patch + LONG(patch->columnofs[col]));
-	desttop = screens[0] + x;
-
+	if (mode13h){
+		desttop = screen + x;
+	}else{
+		desttop = screens[0] + x;
+	}
+	
 	// step through the posts in a column
 	while (column->topdelta != 0xff)
 	{

@@ -29,6 +29,8 @@
 
 #include "v_video.h"
 
+#include "doomstat.h"
+
 // Each screen is [SCREENWIDTH*SCREENHEIGHT];
 byte *screens[5];
 byte *screen;
@@ -36,8 +38,8 @@ int dirtybox[4];
 
 // Now where did these came from?
 byte gammatable[5][256] =
-{
-    {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+    {
+        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
          17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
          33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
          49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64,
@@ -167,8 +169,14 @@ void V_CopyRect(int srcx,
 
     V_MarkRect(destx, desty, width, height);
 
-    src = screens[srcscrn] + SCREENWIDTH * srcy + srcx;
-    dest = screens[destscrn] + SCREENWIDTH * desty + destx;
+    if (!mode13h){
+        src = screens[srcscrn] + SCREENWIDTH * srcy + srcx;
+        dest = screens[destscrn] + SCREENWIDTH * desty + destx;
+    }else{
+        src = screen + SCREENWIDTH * srcy + srcx;
+        dest = screen + SCREENWIDTH * desty + destx;        
+    }
+
 
     for (; height > 0; height--)
     {
@@ -182,7 +190,7 @@ void V_CopyRect(int srcx,
 // V_DrawPatch
 // Masks a column based masked pic to the screen.
 //
-void V_DrawPatch(int x,
+void V_DrawPatch_ModeY(int x,
                  int y,
                  int scrn,
                  patch_t *patch)
@@ -245,6 +253,41 @@ void V_DrawPatch(int x,
     }
 }
 
+void V_DrawPatch(int x, int y, int scrn, patch_t *patch)
+{
+    int count;
+    int col;
+    column_t *column;
+    byte *desttop;
+    byte *dest;
+    byte *source;
+    int w;
+
+    y -= SHORT(patch->topoffset);
+    x -= SHORT(patch->leftoffset);
+
+    col = 0;
+    desttop = screen + y * SCREENWIDTH + x;
+    w = SHORT(patch->width);
+    for (; col < w; x++, col++, desttop++)
+    {
+        column = (column_t *)((byte *)patch + LONG(patch->columnofs[col]));
+        // Step through the posts in a column
+        while (column->topdelta != 0xff)
+        {
+            source = (byte *)column + 3;
+            dest = desttop + column->topdelta * SCREENWIDTH;
+            count = column->length;
+            while (count--)
+            {
+                *dest = *source++;
+                dest += SCREENWIDTH;
+            }
+            column = (column_t *)((byte *)column + column->length + 4);
+        }
+    }
+}
+
 //
 // V_DrawPatchFlipped
 // Masks a column based masked pic to the screen.
@@ -300,7 +343,7 @@ void V_DrawPatchFlipped(int x,
 // V_DrawPatchDirect
 // Draws directly to the screen on the pc.
 //
-void V_DrawPatchDirect(int x,
+/*void V_DrawPatchDirect(int x,
                        int y,
                        int scrn,
                        patch_t *patch)
@@ -360,7 +403,7 @@ void V_DrawPatchDirect(int x,
         if (((++x) & 3) == 0)
             desttop++; // go to next byte, not next plane
     }
-}
+}*/
 
 //
 // V_DrawBlock
@@ -377,8 +420,12 @@ void V_DrawBlock(int x,
 
     V_MarkRect(x, y, width, height);
 
-    dest = screens[scrn] + y * SCREENWIDTH + x;
-
+    if (mode13h){
+        dest = screen + y * SCREENWIDTH + x;
+    }else{
+        dest = screens[scrn] + y * SCREENWIDTH + x;
+    }
+    
     while (height--)
     {
         memcpy(dest, src, width);
@@ -405,6 +452,6 @@ void V_Init_ModeY(void)
 
 void V_Init_13h(void)
 {
-	// I_AllocLow will put screen in low dos memory on PCs.
-	screen = I_AllocLow(SCREENWIDTH*SCREENHEIGHT);
+    // I_AllocLow will put screen in low dos memory on PCs.
+    screen = I_AllocLow(SCREENWIDTH * SCREENHEIGHT);
 }

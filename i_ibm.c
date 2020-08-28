@@ -356,7 +356,8 @@ void I_UpdateNoBlit(void)
         y = realdr[BOXBOTTOM];
         w = realdr[BOXRIGHT] - realdr[BOXLEFT] + 1;
         h = realdr[BOXTOP] - realdr[BOXBOTTOM] + 1;
-        I_UpdateBox(x, y, w, h);
+        if (!mode13h)
+            I_UpdateBox(x, y, w, h);
     }
     // Clear box
     M_ClearBox(dirtybox);
@@ -381,28 +382,113 @@ void I_FinishUpdate(void)
 
     if (showFPS)
     {
-        if (fps_counter==0)
-        {    
+        if (fps_counter == 0)
+        {
             fps_starttime = ticcount;
         }
 
         fps_counter++;
 
         // store a value and/or draw when data is ok:
-        if (fps_counter>(TICRATE+10)) 
+        if (fps_counter > (TICRATE + 10))
         {
             // in case of a very fast system, this will limit the sampling
-            if (fps_nextcalculation<ticcount)
+            if (fps_nextcalculation < ticcount)
             {
                 // minus 1!, exactly 35 FPS when measeraring for a longer time.
-                opt1 = ((fps_counter-1)*TICRATE) << FRACBITS;
-                opt2 = (ticcount-fps_starttime) << FRACBITS;
+                opt1 = ((fps_counter - 1) * TICRATE) << FRACBITS;
+                opt2 = (ticcount - fps_starttime) << FRACBITS;
                 fps = (opt1 >> 14 >= opt2) ? ((opt1 ^ opt2) >> 31) ^ MAXINT : FixedDiv2(opt1, opt2);
-                fps_nextcalculation=ticcount+12; 
-                fps_counter=0; // flush old data
+                fps_nextcalculation = ticcount + 12;
+                fps_counter = 0; // flush old data
             }
-	   }
-	}
+        }
+    }
+}
+
+void I_Update_13h(void)
+{
+    int i;
+    byte *dest;
+    int tics;
+    static int lasttic;
+
+    //
+    // blit screen to video
+    //
+    /*if (DisplayTicker)
+    {
+        if (screenblocks > 9 || UpdateState & (I_FULLSCRN | I_MESSAGES))
+        {
+            dest = (byte *)screen;
+        }
+        else
+        {
+            dest = (byte *)pcscreen;
+        }
+        tics = ticcount - lasttic;
+        lasttic = ticcount;
+        if (tics > 20)
+        {
+            tics = 20;
+        }
+        for (i = 0; i < tics; i++)
+        {
+            *dest = 0xff;
+            dest += 2;
+        }
+        for (i = tics; i < 20; i++)
+        {
+            *dest = 0x00;
+            dest += 2;
+        }
+    }
+    if (UpdateState == I_NOUPDATE)
+    {
+        return;
+    }
+    if (UpdateState & I_FULLSCRN)
+    {
+        memcpy(pcscreen, screen, SCREENWIDTH * SCREENHEIGHT);
+        UpdateState = I_NOUPDATE; // clear out all draw types
+    }
+    if (UpdateState & I_FULLVIEW)
+    {
+        if (UpdateState & I_MESSAGES && screenblocks > 7)
+        {
+            for (i = 0; i <
+                        (viewwindowy + viewheight) * SCREENWIDTH;
+                 i += SCREENWIDTH)
+            {
+                memcpy(pcscreen + i, screen + i, SCREENWIDTH);
+            }
+            UpdateState &= ~(I_FULLVIEW | I_MESSAGES);
+        }
+        else
+        {
+            for (i = viewwindowy * SCREENWIDTH + viewwindowx; i <
+                                                              (viewwindowy + viewheight) * SCREENWIDTH;
+                 i += SCREENWIDTH)
+            {
+                memcpy(pcscreen + i, screen + i, viewwidth);
+            }
+            UpdateState &= ~I_FULLVIEW;
+        }
+    }
+    if (UpdateState & I_STATBAR)
+    {
+        memcpy(pcscreen + SCREENWIDTH * (SCREENHEIGHT - SBARHEIGHT),
+               screen + SCREENWIDTH * (SCREENHEIGHT - SBARHEIGHT),
+               SCREENWIDTH * SBARHEIGHT);
+        UpdateState &= ~I_STATBAR;
+    }
+    if (UpdateState & I_MESSAGES)
+    {
+        memcpy(pcscreen, screen, SCREENWIDTH * 28);
+        UpdateState &= ~I_MESSAGES;
+    }*/
+
+    memcpy(pcscreen, screen, SCREENHEIGHT*SCREENWIDTH);
 }
 
 //
@@ -434,10 +520,10 @@ void I_InitGraphics_ModeY(void)
 
 void I_InitGraphics_13h(void)
 {
-	regs.w.ax = 0x13;
-	int386(0x10, (union REGS *)&regs, &regs);
-	pcscreen = destscreen = (byte *)0xa0000;
-	I_SetPalette(W_CacheLumpName("PLAYPAL", PU_CACHE));
+    regs.w.ax = 0x13;
+    int386(0x10, (union REGS *)&regs, &regs);
+    pcscreen = destscreen = (byte *)0xa0000;
+    I_SetPalette(W_CacheLumpName("PLAYPAL", PU_CACHE));
 }
 
 //
