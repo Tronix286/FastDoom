@@ -91,14 +91,14 @@ void STlib_drawNum(st_number_t *n,
     x = n->x;
 
     // in the special case of 0, you draw 0
-    //if (!num)
-    //    V_DrawPatch(x - w, n->y, FG, n->p[0]);
+    if (!num)
+        V_DrawPatch(x - w, n->y, FG, n->p[0]);
 
     // draw the new number
     while (num && numdigits--)
     {
         x -= w;
-    //    V_DrawPatch(x, n->y, FG, n->p[num % 10]);
+        V_DrawPatch(x, n->y, FG, n->p[num % 10]);
         num /= 10;
     }
 }
@@ -127,8 +127,8 @@ void STlib_initPercent(st_percent_t *p,
 void STlib_updatePercent(st_percent_t *per,
                          int refresh)
 {
-    //if (refresh && *per->n.on)
-    //    V_DrawPatch(per->n.x, per->n.y, FG, per->p);
+    if (refresh && *per->n.on)
+        V_DrawPatch(per->n.x, per->n.y, FG, per->p);
 
     STlib_updateNum(&per->n, refresh);
 }
