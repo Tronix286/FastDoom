@@ -272,7 +272,7 @@ void R_RenderSegLoop(void)
 			dc_yh = yh;
 			dc_texturemid = rw_midtexturemid;
 			dc_source = R_GetColumn(midtexture, texturecolumn);
-			R_DrawColumn_13h();
+			colfunc();
 			cc_rwx = viewheight;
 			fc_rwx = -1;
 		}
@@ -294,7 +294,7 @@ void R_RenderSegLoop(void)
 					dc_yh = mid;
 					dc_texturemid = rw_toptexturemid;
 					dc_source = R_GetColumn(toptexture, texturecolumn);
-					R_DrawColumn_13h();
+					colfunc();
 					cc_rwx = mid;
 				}
 				else
@@ -324,7 +324,7 @@ void R_RenderSegLoop(void)
 					dc_texturemid = rw_bottomtexturemid;
 					dc_source = R_GetColumn(bottomtexture,
 											texturecolumn);
-					R_DrawColumn_13h();
+					colfunc();
 					fc_rwx = mid;
 				}
 				else
