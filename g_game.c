@@ -880,11 +880,7 @@ void G_DoLoadGame(void)
         R_ExecuteSetViewSize();
 
     // draw the pattern into the back screen
-    if (mode13h){
-
-    }else{
-        R_FillBackScreen();
-    }
+    R_FillBackScreen();
 }
 
 //
@@ -955,11 +951,7 @@ void G_DoSaveGame(void)
     players.message = GGSAVED;
 
     // draw the pattern into the back screen
-    if (mode13h){
-
-    }else{
-        R_FillBackScreen();
-    }
+    R_FillBackScreen();
 }
 
 //

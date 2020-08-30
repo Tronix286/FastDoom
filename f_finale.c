@@ -683,10 +683,10 @@ void F_CastDrawer(void)
 	flip = (boolean)sprframe->flip[0];
 
 	patch = W_CacheLumpNum(lump + firstspritelump, PU_CACHE);
-	//if (flip)
-	//	V_DrawPatchFlipped(160, 170, 0, patch);
-	//else
-	//	V_DrawPatch(160, 170, 0, patch);
+	if (flip)
+		V_DrawPatchFlipped(160, 170, 0, patch);
+	else
+		V_DrawPatch(160, 170, 0, patch);
 }
 
 //

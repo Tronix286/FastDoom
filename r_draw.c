@@ -855,13 +855,15 @@ void R_FillBackScreen(void)
         name = name1;
 
     src = W_CacheLumpName(name, PU_CACHE);
-    
-    if (mode13h){
+
+    if (mode13h)
+    {
         dest = screen;
-    }else{
+    }
+    else
+    {
         dest = screens[1];
     }
-    
 
     for (y = 0; y < SCREENHEIGHT - SBARHEIGHT; y++)
     {
@@ -916,21 +918,24 @@ void R_FillBackScreen(void)
                 1,
                 W_CacheLumpName("brdr_br", PU_CACHE));
 
-    for (i = 0; i < 4; i++)
+    if (!mode13h)
     {
-        outp(SC_INDEX, SC_MAPMASK);
-        outp(SC_INDEX + 1, 1 << i);
-
-        dest = (byte *)0xac000;
-        if (mode13h)
-            src = screen + i;
-        else
-            src = screens[1] + i;
-        do
+        for (i = 0; i < 4; i++)
         {
-            *dest++ = *src;
-            src += 4;
-        } while (dest != (byte *)(0xac000 + (SCREENHEIGHT - SBARHEIGHT) * SCREENWIDTH / 4));
+            outp(SC_INDEX, SC_MAPMASK);
+            outp(SC_INDEX + 1, 1 << i);
+
+            dest = (byte *)0xac000;
+            if (mode13h)
+                src = screen + i;
+            else
+                src = screens[1] + i;
+            do
+            {
+                *dest++ = *src;
+                src += 4;
+            } while (dest != (byte *)(0xac000 + (SCREENHEIGHT - SBARHEIGHT) * SCREENWIDTH / 4));
+        }
     }
 }
 

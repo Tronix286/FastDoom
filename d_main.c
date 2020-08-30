@@ -271,7 +271,7 @@ void D_Display(void)
     if (gamestate == GS_LEVEL && oldgamestate != GS_LEVEL)
     {
         viewactivestate = false; // view was not active
-        //R_FillBackScreen();      // draw the pattern into the back screen
+        R_FillBackScreen(); // draw the pattern into the back screen
     }
 
     // see if the border needs to be updated to the screen
@@ -299,7 +299,7 @@ void D_Display(void)
         else
             y = viewwindowy + 4;
         V_DrawPatch(viewwindowx + (scaledviewwidth - 68) / 2,
-                          y, 0, W_CacheLumpName("M_PAUSE", PU_CACHE));
+                    y, 0, W_CacheLumpName("M_PAUSE", PU_CACHE));
     }
 
     // menus go directly to the screen
@@ -309,12 +309,15 @@ void D_Display(void)
     // normal update
     if (!wipe)
     {
-        if (mode13h){
+        if (mode13h)
+        {
             I_Update_13h();
-        }else{
+        }
+        else
+        {
             I_FinishUpdate(); // page flip or blit buffer
         }
-        
+
         return;
     }
 
@@ -333,13 +336,16 @@ void D_Display(void)
         done = wipe_ScreenWipe(wipe_Melt, 0, 0, SCREENWIDTH, SCREENHEIGHT, tics);
         if (!mode13h)
             I_UpdateNoBlit();
-        M_Drawer();       // menu is drawn even on top of wipes
-        
-        if (mode13h){
+        M_Drawer(); // menu is drawn even on top of wipes
+
+        if (mode13h)
+        {
             I_Update_13h();
-        }else{
+        }
+        else
+        {
             I_FinishUpdate(); // page flip or blit buffer
-        }    
+        }
     } while (!done);
 }
 
@@ -353,12 +359,15 @@ void D_DoomLoop(void)
     if (demorecording)
         G_BeginRecording();
 
-    if (mode13h){
+    if (mode13h)
+    {
         I_InitGraphics_13h();
-    }else{
+    }
+    else
+    {
         I_InitGraphics_ModeY();
     }
-    
+
     while (1)
     {
         // process one or more tics
@@ -938,12 +947,15 @@ void D_DoomMain(void)
 
     // init subsystems
     printf("V_Init: allocate screens.\n");
-    if (mode13h){
+    if (mode13h)
+    {
         V_Init_13h();
-    }else{
+    }
+    else
+    {
         V_Init_ModeY();
     }
-    
+
     printf("M_LoadDefaults: Load system defaults.\n");
     M_LoadDefaults(); // load before initing other systems
 
@@ -1051,9 +1063,12 @@ void D_DoomMain(void)
     D_RedrawTitle();
     ST_Init();
 
-    if (waitInit){
+    if (waitInit)
+    {
         printf("PRESS ANY KEY TO CONTINUE");
-        while(lastpress == 0){};
+        while (lastpress == 0)
+        {
+        };
     }
 
     // start the apropriate game based on parms
