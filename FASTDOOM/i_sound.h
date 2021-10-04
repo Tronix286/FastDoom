@@ -42,6 +42,7 @@ typedef enum
     snd_PC1BIT,
     snd_LPTDAC,
     snd_SBDirect,
+    snd_CMS,
     NUM_SCARDS
 } cardenum_t;
 

@@ -63,6 +63,7 @@ GLOBOBJS_Y = &
  ns_multi.obj &
  ns_speak.obj &
  ns_lpt.obj &
+ ns_cms.obj &
  ns_sbdm.obj &
  i_debug.obj &
  i_random.obj &
@@ -149,6 +150,7 @@ GLOBOBJS_13H = &
  ns_multi.obj &
  ns_speak.obj &
  ns_lpt.obj &
+ ns_cms.obj &
  ns_sbdm.obj &
  i_debug.obj &
  i_random.obj &
@@ -235,6 +237,7 @@ GLOBOBJS_VBE = &
  ns_multi.obj &
  ns_speak.obj &
  ns_lpt.obj &
+ ns_cms.obj &
  ns_sbdm.obj &
  i_debug.obj &
  i_random.obj &
@@ -322,6 +325,7 @@ GLOBOBJS_VBD = &
  ns_multi.obj &
  ns_speak.obj &
  ns_lpt.obj &
+ ns_cms.obj &
  ns_sbdm.obj &
  i_debug.obj &
  i_random.obj &
@@ -409,6 +413,7 @@ GLOBOBJS_TEXT = &
  ns_multi.obj &
  ns_speak.obj &
  ns_lpt.obj &
+ ns_cms.obj &
  ns_sbdm.obj &
  i_debug.obj &
  i_random.obj &

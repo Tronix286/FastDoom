@@ -18,6 +18,7 @@
 #include "ns_muldf.h"
 #include "ns_speak.h"
 #include "ns_lpt.h"
+#include "ns_cms.h"
 #include "ns_sbdm.h"
 
 #include "fastmath.h"
@@ -805,6 +806,9 @@ int MV_SetMixMode(
     case LPTDAC:
         MV_MixMode = LPT_SetMixMode(mode);
         break;
+    case CMS:
+        MV_MixMode = CMS_SetMixMode(mode);
+        break;
     case SoundBlasterDirect:
         MV_MixMode = SBDM_SetMixMode(mode);
         break;
@@ -971,6 +975,13 @@ int MV_StartPlayback(
         MV_MixRate = LPT_SampleRate;
         MV_DMAChannel = -1;
         break;
+    case CMS:
+        CMS_BeginBufferedPlayback(MV_MixBuffer[0],
+                                 TotalBufferSize, MV_NumberOfBuffers,
+                                 MV_ServiceVoc);
+        MV_MixRate = CMS_SampleRate;
+        MV_DMAChannel = -1;
+        break;
     case SoundBlasterDirect:
         SBDM_BeginBufferedPlayback(MV_MixBuffer[0],
                                  TotalBufferSize, MV_NumberOfBuffers,
@@ -1033,6 +1044,9 @@ void MV_StopPlayback(
         break;
     case LPTDAC:
         LPT_StopPlayback();
+        break;
+    case CMS:
+        CMS_StopPlayback();
         break;
     case SoundBlasterDirect:
         SBDM_StopPlayback;
@@ -1391,6 +1405,10 @@ int MV_Init(
         status = LPT_Init(soundcard);
         break;
     
+    case CMS:
+        status = CMS_Init(soundcard);
+        break;
+
     case SoundBlasterDirect:
         status = SBDM_Init(soundcard);
         break;
@@ -1506,6 +1524,9 @@ int MV_Shutdown(
         break;
     case LPTDAC:
         LPT_Shutdown();
+        break;
+    case CMS:
+        CMS_Shutdown();
         break;
     case SoundBlasterDirect:
         SBDM_Shutdown();
