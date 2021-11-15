@@ -201,49 +201,6 @@ void R_DrawSkyFlatPotato(void)
 #endif
 
 #ifdef MODE_VBE2_DIRECT
-/*void R_DrawColumnVBE2(void)
-{
-    int count;
-    byte *dest;
-    fixed_t frac, fracstep;
-
-    count = dc_yh - dc_yl;
-    if (count < 0)
-        return;
-
-    dest = destview + Mul320(dc_yl) + dc_x;
-
-    fracstep = dc_iscale;
-    frac = dc_texturemid + (dc_yl - centery) * fracstep;
-
-    do
-    {
-        *dest = dc_colormap[dc_source[(frac >> FRACBITS) & 127]];
-        dest += SCREENWIDTH;
-        frac += fracstep;
-    } while (count--);
-}*/
-
-/*void R_DrawSpanVBE2(void)
-{
-    fixed_t xfrac, yfrac;
-    byte *dest;
-    int count, spot;
-
-    xfrac = ds_xfrac;
-    yfrac = ds_yfrac;
-
-    dest = destview + Mul320(ds_y) + ds_x1;
-    count = ds_x2 - ds_x1;
-    do
-    {
-        spot = ((yfrac >> (16 - 6)) & (63 * 64)) + ((xfrac >> 16) & 63);
-        *dest++ = ds_colormap[ds_source[spot]];
-        xfrac += ds_xstep;
-        yfrac += ds_ystep;
-    } while (count--);
-}*/
-
 void R_DrawSkyFlatVBE2(void)
 {
     int count;
@@ -343,7 +300,8 @@ void R_DrawSpanFlatVBE2(void)
     byte *dest;
     int countp;
 
-    lighttable_t color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    //lighttable_t color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    lighttable_t color = ds_colormap[((byte *)GetCR2toEAX())[FLATPIXELCOLOR]];
 
     dest = destview + Mul320(ds_y) + ds_x1;
 
@@ -1610,7 +1568,8 @@ void R_DrawSpanPotato(void)
     position = ((ds_xfrac << 10) & 0xffff0000) | ((ds_yfrac >> 6) & 0xffff);
     step = ((ds_xstep << 10) & 0xffff0000) | ((ds_ystep >> 6) & 0xffff);
 
-    source = ds_source;
+    //source = ds_source;
+    source = GetCR2toESI();
     colormap = ds_colormap;
 
     dest = destview + Mul80(ds_y);
@@ -2361,7 +2320,8 @@ void R_DrawSpanFlat(void)
 
     total_pixels = ds_x2 - ds_x1;
 
-    color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    //color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    color = ds_colormap[((byte *)GetCR2toEAX())[FLATPIXELCOLOR]];
     origin_y = (int)destview + Mul80(ds_y);
 
     first_plane = ds_x1 & 3;
@@ -2497,7 +2457,8 @@ void R_DrawSpanFlatLow(void)
 
     total_pixels = ds_x2 - ds_x1;
 
-    color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    //color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    color = ds_colormap[((byte *)GetCR2toEAX())[FLATPIXELCOLOR]];
     origin_y = (int)destview + Mul80(ds_y);
 
     first_plane = ds_x1 & 1;
@@ -2580,7 +2541,8 @@ void R_DrawSpanFlatPotato(void)
     int countp;
     byte *dest;
 
-    lighttable_t color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    //lighttable_t color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    lighttable_t color = ds_colormap[((byte *)GetCR2toEAX())[FLATPIXELCOLOR]];
 
     dest = destview + Mul80(ds_y) + ds_x1;
 
@@ -2686,7 +2648,8 @@ void R_DrawSpanFlatText4025(void)
     int countp;
     unsigned short *dest;
 
-    unsigned short color = ds_colormap[ds_source[FLATPIXELCOLOR]] << 8 | 219;
+    //unsigned short color = ds_colormap[ds_source[FLATPIXELCOLOR]] << 8 | 219;
+    unsigned short color = ds_colormap[((byte *)GetCR2toEAX())[FLATPIXELCOLOR]] << 8 | 219;
 
     dest = textdestscreen + Mul40(ds_y) + ds_x1;
 
@@ -2714,7 +2677,8 @@ void R_DrawSpanFlatText8025(void)
 
     odd = ds_y % 2;
     shift = 8 | (odd << 2);
-    color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    //color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    color = ds_colormap[((byte *)GetCR2toEAX())[FLATPIXELCOLOR]];
     color = color << shift | 223;
 
     even = (ds_y + 1) % 2;
@@ -3101,7 +3065,8 @@ void R_DrawSpanFlat_13h(void)
     byte *dest;
     int countp;
 
-    lighttable_t color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    //lighttable_t color = ds_colormap[ds_source[FLATPIXELCOLOR]];
+    lighttable_t color = ds_colormap[((byte *)GetCR2toEAX())[FLATPIXELCOLOR]];
 
     dest = ylookup[ds_y] + columnofs[ds_x1];
 

@@ -15,7 +15,7 @@
 ;
 ; DESCRIPTION:
 ;
-	.386
+	.386p
 	.MODEL  small
 	INCLUDE defs.inc
 
@@ -64,7 +64,7 @@ PUBLIC  R_DrawColumnPotato_
 	sub		ebp,eax
 	shl		ebp,9						; 7 significant bits, 25 frac
 	
-	mov		esi,[_dc_source]
+	mov		esi,cr2
 	
 	mov		ebx,[_dc_iscale]
 	shl		ebx,9
@@ -158,7 +158,7 @@ PUBLIC  R_DrawColumnLow_
 	sub		ebp,eax
 	shl		ebp,9						; 7 significant bits, 25 frac
 	
-	mov		esi,[_dc_source]
+	mov		esi,cr2
 	
 	mov		ebx,[_dc_iscale]
 	shl		ebx,9
@@ -251,7 +251,7 @@ cdraw:
 	sub		ebp,eax
 	shl		ebp,9						; 7 significant bits, 25 frac
 	
-	mov		esi,[_dc_source]
+	mov		esi,cr2
 	
 	mov		ebx,[_dc_iscale]
 	shl		ebx,9
@@ -402,7 +402,7 @@ hplane:
 	mov		[loopcount],eax
 	mov		eax,[_ds_colormap]
 	mov		ebx,eax
-	mov		esi,[_ds_source]
+	mov		esi,cr2
 	mov		edi,[dest]
 	mov		ebp,[frac]
 	test	[curpx],1
@@ -433,7 +433,7 @@ hfill:
 	jmp		hchecklast
 hfillone:
 	mov		eax,[_ds_colormap]
-	mov		esi,[_ds_source]
+	mov		esi,cr2
 	mov		edi,[dest]
 	mov		ebp,[frac]
 	shld	ecx,ebp,22
@@ -559,7 +559,7 @@ lplane:
 	mov		[loopcount],eax
 	mov		eax,[_ds_colormap]
 	mov		ebx,eax
-	mov		esi,[_ds_source]
+	mov		esi,cr2
 	mov		edi,[dest]
 	mov		ebp,[frac]
 	test	[curpx],1
@@ -590,7 +590,7 @@ lfill:
 	jmp		lchecklast
 lfillone:
 	mov		eax,[_ds_colormap]
-	mov		esi,[_ds_source]
+	mov		esi,cr2
 	mov		edi,[dest]
 	mov		ebp,[frac]
 	shld	ecx,ebp,22

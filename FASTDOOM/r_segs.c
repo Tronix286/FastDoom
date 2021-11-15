@@ -239,7 +239,8 @@ void R_RenderMaskedSegRange(drawseg_t *ds,
 					continue;
 				}
 
-				dc_source = (byte *)col + 3;
+				//dc_source = (byte *)col + 3;
+				SetCR2fromECX((byte *)col + 3);
 				dc_texturemid = basetexturemid - (col->topdelta << FRACBITS);
 
 				dc_yh = yh;
@@ -381,14 +382,16 @@ void R_RenderSegLoop(void)
 
 				if (lump > 0)
 				{
-					dc_source = (byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs;
+					//dc_source = (byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs;
+					SetCR2fromEDX((byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs);
 				}
 				else
 				{
 					if (!texturecomposite[tex])
 						R_GenerateComposite(tex);
 
-					dc_source = texturecomposite[tex] + ofs;
+					//dc_source = texturecomposite[tex] + ofs;
+					SetCR2fromEDX(texturecomposite[tex] + ofs);
 				}
 
 				colfunc();
@@ -426,14 +429,16 @@ void R_RenderSegLoop(void)
 
 					if (lump > 0)
 					{
-						dc_source = (byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs;
+						//dc_source = (byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs;
+						SetCR2fromEDX((byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs);
 					}
 					else
 					{
 						if (!texturecomposite[tex])
 							R_GenerateComposite(tex);
 
-						dc_source = texturecomposite[tex] + ofs;
+						//dc_source = texturecomposite[tex] + ofs;
+						SetCR2fromEDX(texturecomposite[tex] + ofs);
 					}
 
 					colfunc();
@@ -475,14 +480,16 @@ void R_RenderSegLoop(void)
 
 					if (lump > 0)
 					{
-						dc_source = (byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs;
+						//dc_source = (byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs;
+						SetCR2fromEDX((byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs);
 					}
 					else
 					{
 						if (!texturecomposite[tex])
 							R_GenerateComposite(tex);
 
-						dc_source = texturecomposite[tex] + ofs;
+						//dc_source = texturecomposite[tex] + ofs;
+						SetCR2fromEDX(texturecomposite[tex] + ofs);
 					}
 
 					colfunc();

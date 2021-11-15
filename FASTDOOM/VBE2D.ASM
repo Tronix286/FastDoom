@@ -1,4 +1,4 @@
-	.386
+	.386p
 	.MODEL  small
 	INCLUDE defs.inc
 
@@ -73,7 +73,7 @@ PUBLIC   R_DrawColumnVBE2_
 	shl		edx,9							; 7 significant bits, 25 frac
 
 	shl		ecx,9							; 7 significant bits, 25 frac
-	mov     esi,[_dc_source]
+	mov     esi,cr2
 
 	mov     eax,[_dc_colormap]
 
@@ -180,7 +180,7 @@ PUBLIC	R_DrawSpanVBE2_
 	and	eax,0ffffh
 	or	edx,eax
 
-	mov	esi,[_ds_source]
+	mov	esi,cr2
 
 	mov		ebp,[_ds_y]
 	lea		edi,[ebp+ebp*4]

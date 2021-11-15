@@ -329,7 +329,9 @@ void R_DrawVisSprite(vissprite_t *vis)
                 continue;
             }
 
-            dc_source = (byte *)column + 3;
+            //dc_source = (byte *)column + 3;
+            SetCR2fromEBX((byte *)column + 3);
+            
             dc_texturemid = basetexturemid - (column->topdelta << FRACBITS);
 
             dc_yh = yh;

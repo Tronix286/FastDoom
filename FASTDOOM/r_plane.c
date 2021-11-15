@@ -343,7 +343,9 @@ void R_DrawPlanes(void)
 
         // regular flat
 
-        ds_source = W_CacheLumpNum(firstflat + flattranslation[pl->picnum], PU_STATIC);
+        //ds_source = W_CacheLumpNum(firstflat + flattranslation[pl->picnum], PU_STATIC);
+        SetCR2fromEAX(W_CacheLumpNum(firstflat + flattranslation[pl->picnum], PU_CACHE));
+        
         planeheight = abs(pl->height - viewz);
         light = (pl->lightlevel >> LIGHTSEGSHIFT) + extralight;
 
@@ -391,7 +393,7 @@ void R_DrawPlanes(void)
             }
         }
 
-        Z_ChangeTag(ds_source, PU_CACHE);
+        //Z_ChangeTag(ds_source, PU_CACHE);
     }
 }
 
@@ -1243,14 +1245,16 @@ void R_DrawSky(visplane_t *pl)
 
             if (lump > 0)
             {
-                dc_source = (byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs;
+                //dc_source = (byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs;
+                SetCR2fromEAX((byte *)W_CacheLumpNum(lump, PU_CACHE) + ofs);
             }
             else
             {
                 if (!texturecomposite[tex])
                     R_GenerateComposite(tex);
 
-                dc_source = texturecomposite[tex] + ofs;
+                //dc_source = texturecomposite[tex] + ofs;
+                SetCR2fromEAX(texturecomposite[tex] + ofs);
             }
 
             skyfunc();

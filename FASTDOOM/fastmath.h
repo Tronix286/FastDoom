@@ -300,4 +300,54 @@ void OutString(unsigned short Port, unsigned char *addr, int c);
     parm [dx] [si] [cx] nomemory \
     modify exact [si cx] nomemory;
 
+void SetCR2fromEAX(unsigned int value);
+#pragma aux SetCR2fromEAX = \
+    "mov cr2, eax"  \
+    parm [eax] nomemory;
+
+void SetCR2fromEBX(unsigned int value);
+#pragma aux SetCR2fromEBX = \
+    "mov cr2, ebx"  \
+    parm [ebx] nomemory;
+
+void SetCR2fromECX(unsigned int value);
+#pragma aux SetCR2fromECX = \
+    "mov cr2, ecx"  \
+    parm [ecx] nomemory;
+
+void SetCR2fromEDX(unsigned int value);
+#pragma aux SetCR2fromEDX = \
+    "mov cr2, edx"  \
+    parm [edx] nomemory;
+
+void SetCR2fromESI(unsigned int value);
+#pragma aux SetCR2fromESI = \
+    "mov cr2, esi"  \
+    parm [esi] nomemory;
+
+unsigned int GetCR2toEAX(void);
+#pragma aux GetCR2toEAX = \
+    "mov eax, cr2"  \
+    value [eax];
+
+unsigned int GetCR2toEBX(void);
+#pragma aux GetCR2toEBX = \
+    "mov ebx, cr2"  \
+    value [ebx];
+
+unsigned int GetCR2toECX(void);
+#pragma aux GetCR2toECX = \
+    "mov ecx, cr2"  \
+    value [ecx];
+
+unsigned int GetCR2toEDX(void);
+#pragma aux GetCR2toEDX = \
+    "mov edx, cr2"  \
+    value [edx];
+
+unsigned int GetCR2toESI(void);
+#pragma aux GetCR2toESI = \
+    "mov esi, cr2"  \
+    value [esi];
+
 #endif // __DOOMMATH__

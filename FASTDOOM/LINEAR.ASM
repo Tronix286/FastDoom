@@ -1,4 +1,4 @@
-	.386
+	.386p
 	.MODEL  small
 	INCLUDE defs.inc
 
@@ -71,7 +71,7 @@ PUBLIC   R_DrawColumn_13h_
 	shl		edx,9							; 7 significant bits, 25 frac
 
 	shl		ecx,9							; 7 significant bits, 25 frac
-	mov     esi,[_dc_source]
+	mov     esi,cr2
 
 	mov     eax,[_dc_colormap]
 
@@ -196,7 +196,7 @@ PUBLIC	R_DrawSpan_13h_
 	and	eax,0ffffh
 	or	edx,eax
 
-	mov	esi,[_ds_source]
+	mov	esi,cr2
 
 	mov	edi,[_ds_y]
 	mov	edi,[_ylookup+edi*4]
