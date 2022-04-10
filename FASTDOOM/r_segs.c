@@ -35,6 +35,8 @@
 
 #include "sizeopt.h"
 
+#include "fastdiv.h"
+
 #define SC_INDEX 0x3C4
 
 // OPTIMIZE: closed two sided lines as single sided
@@ -599,7 +601,971 @@ void R_StoreWallRange(int start,
 	{
 		// VITI95: OPTIMIZE
 		ds_p->scale2 = R_ScaleFromGlobalAngle(viewangle + xtoviewangle[stop]);
+
+		switch (stop - start)
+		{
+		case 1:
+			ds_p->scalestep = rw_scalestep = (ds_p->scale2 - rw_scale);
+			break;
+		case 2:
+			ds_p->scalestep = rw_scalestep = (ds_p->scale2 - rw_scale) >> 1;
+			break;
+		case 3:
+			ds_p->scalestep = rw_scalestep = Div003(ds_p->scale2 - rw_scale);
+			break;
+		case 4:
+			ds_p->scalestep = rw_scalestep = (ds_p->scale2 - rw_scale) >> 2;
+			break;
+		case 5:
+			ds_p->scalestep = rw_scalestep = Div005(ds_p->scale2 - rw_scale);
+			break;
+		case 6:
+			ds_p->scalestep = rw_scalestep = Div006(ds_p->scale2 - rw_scale);
+			break;
+		case 7:
+			ds_p->scalestep = rw_scalestep = Div007(ds_p->scale2 - rw_scale);
+			break;
+		case 8:
+			ds_p->scalestep = rw_scalestep = (ds_p->scale2 - rw_scale) >> 3;
+			break;
+		case 9:
+			ds_p->scalestep = rw_scalestep = Div009(ds_p->scale2 - rw_scale);
+			break;
+		case 10:
+			ds_p->scalestep = rw_scalestep = Div010(ds_p->scale2 - rw_scale);
+			break;
+		case 11:
+			ds_p->scalestep = rw_scalestep = Div011(ds_p->scale2 - rw_scale);
+			break;
+		case 12:
+			ds_p->scalestep = rw_scalestep = Div012(ds_p->scale2 - rw_scale);
+			break;
+		case 13:
+			ds_p->scalestep = rw_scalestep = Div013(ds_p->scale2 - rw_scale);
+			break;
+		case 14:
+			ds_p->scalestep = rw_scalestep = Div014(ds_p->scale2 - rw_scale);
+			break;
+		case 15:
+			ds_p->scalestep = rw_scalestep = Div015(ds_p->scale2 - rw_scale);
+			break;
+		case 16:
+			ds_p->scalestep = rw_scalestep = (ds_p->scale2 - rw_scale) >> 4;
+			break;
+		case 17:
+			ds_p->scalestep = rw_scalestep = Div017(ds_p->scale2 - rw_scale);
+			break;
+		case 18:
+			ds_p->scalestep = rw_scalestep = Div018(ds_p->scale2 - rw_scale);
+			break;
+		case 19:
+			ds_p->scalestep = rw_scalestep = Div019(ds_p->scale2 - rw_scale);
+			break;
+		case 20:
+			ds_p->scalestep = rw_scalestep = Div020(ds_p->scale2 - rw_scale);
+			break;
+		case 21:
+			ds_p->scalestep = rw_scalestep = Div021(ds_p->scale2 - rw_scale);
+			break;
+		case 22:
+			ds_p->scalestep = rw_scalestep = Div022(ds_p->scale2 - rw_scale);
+			break;
+		case 23:
+			ds_p->scalestep = rw_scalestep = Div023(ds_p->scale2 - rw_scale);
+			break;
+		case 24:
+			ds_p->scalestep = rw_scalestep = Div024(ds_p->scale2 - rw_scale);
+			break;
+		case 25:
+			ds_p->scalestep = rw_scalestep = Div025(ds_p->scale2 - rw_scale);
+			break;
+		case 26:
+			ds_p->scalestep = rw_scalestep = Div026(ds_p->scale2 - rw_scale);
+			break;
+		case 27:
+			ds_p->scalestep = rw_scalestep = Div027(ds_p->scale2 - rw_scale);
+			break;
+		case 28:
+			ds_p->scalestep = rw_scalestep = Div028(ds_p->scale2 - rw_scale);
+			break;
+		case 29:
+			ds_p->scalestep = rw_scalestep = Div029(ds_p->scale2 - rw_scale);
+			break;
+		case 30:
+			ds_p->scalestep = rw_scalestep = Div030(ds_p->scale2 - rw_scale);
+			break;
+		case 31:
+			ds_p->scalestep = rw_scalestep = Div031(ds_p->scale2 - rw_scale);
+			break;
+		case 32:
+			ds_p->scalestep = rw_scalestep = (ds_p->scale2 - rw_scale) >> 5;
+			break;
+		case 33:
+			ds_p->scalestep = rw_scalestep = Div033(ds_p->scale2 - rw_scale);
+			break;
+		case 34:
+			ds_p->scalestep = rw_scalestep = Div034(ds_p->scale2 - rw_scale);
+			break;
+		case 35:
+			ds_p->scalestep = rw_scalestep = Div035(ds_p->scale2 - rw_scale);
+			break;
+		case 36:
+			ds_p->scalestep = rw_scalestep = Div036(ds_p->scale2 - rw_scale);
+			break;
+		case 37:
+			ds_p->scalestep = rw_scalestep = Div037(ds_p->scale2 - rw_scale);
+			break;
+		case 38:
+			ds_p->scalestep = rw_scalestep = Div038(ds_p->scale2 - rw_scale);
+			break;
+		case 39:
+			ds_p->scalestep = rw_scalestep = Div039(ds_p->scale2 - rw_scale);
+			break;
+		case 40:
+			ds_p->scalestep = rw_scalestep = Div040(ds_p->scale2 - rw_scale);
+			break;
+		case 41:
+			ds_p->scalestep = rw_scalestep = Div041(ds_p->scale2 - rw_scale);
+			break;
+		case 42:
+			ds_p->scalestep = rw_scalestep = Div042(ds_p->scale2 - rw_scale);
+			break;
+		case 43:
+			ds_p->scalestep = rw_scalestep = Div043(ds_p->scale2 - rw_scale);
+			break;
+		case 44:
+			ds_p->scalestep = rw_scalestep = Div044(ds_p->scale2 - rw_scale);
+			break;
+		case 45:
+			ds_p->scalestep = rw_scalestep = Div045(ds_p->scale2 - rw_scale);
+			break;
+		case 46:
+			ds_p->scalestep = rw_scalestep = Div046(ds_p->scale2 - rw_scale);
+			break;
+		case 47:
+			ds_p->scalestep = rw_scalestep = Div047(ds_p->scale2 - rw_scale);
+			break;
+		case 48:
+			ds_p->scalestep = rw_scalestep = Div048(ds_p->scale2 - rw_scale);
+			break;
+		case 49:
+			ds_p->scalestep = rw_scalestep = Div049(ds_p->scale2 - rw_scale);
+			break;
+		case 50:
+			ds_p->scalestep = rw_scalestep = Div050(ds_p->scale2 - rw_scale);
+			break;
+		case 51:
+			ds_p->scalestep = rw_scalestep = Div051(ds_p->scale2 - rw_scale);
+			break;
+		case 52:
+			ds_p->scalestep = rw_scalestep = Div052(ds_p->scale2 - rw_scale);
+			break;
+		case 53:
+			ds_p->scalestep = rw_scalestep = Div053(ds_p->scale2 - rw_scale);
+			break;
+		case 54:
+			ds_p->scalestep = rw_scalestep = Div054(ds_p->scale2 - rw_scale);
+			break;
+		case 55:
+			ds_p->scalestep = rw_scalestep = Div055(ds_p->scale2 - rw_scale);
+			break;
+		case 56:
+			ds_p->scalestep = rw_scalestep = Div056(ds_p->scale2 - rw_scale);
+			break;
+		case 57:
+			ds_p->scalestep = rw_scalestep = Div057(ds_p->scale2 - rw_scale);
+			break;
+		case 58:
+			ds_p->scalestep = rw_scalestep = Div058(ds_p->scale2 - rw_scale);
+			break;
+		case 59:
+			ds_p->scalestep = rw_scalestep = Div059(ds_p->scale2 - rw_scale);
+			break;
+		case 60:
+			ds_p->scalestep = rw_scalestep = Div060(ds_p->scale2 - rw_scale);
+			break;
+		case 61:
+			ds_p->scalestep = rw_scalestep = Div061(ds_p->scale2 - rw_scale);
+			break;
+		case 62:
+			ds_p->scalestep = rw_scalestep = Div062(ds_p->scale2 - rw_scale);
+			break;
+		case 63:
+			ds_p->scalestep = rw_scalestep = Div063(ds_p->scale2 - rw_scale);
+			break;
+		case 64:
+			ds_p->scalestep = rw_scalestep = (ds_p->scale2 - rw_scale) >> 6;
+			break;
+		case 65:
+			ds_p->scalestep = rw_scalestep = Div065(ds_p->scale2 - rw_scale);
+			break;
+		case 66:
+			ds_p->scalestep = rw_scalestep = Div066(ds_p->scale2 - rw_scale);
+			break;
+		case 67:
+			ds_p->scalestep = rw_scalestep = Div067(ds_p->scale2 - rw_scale);
+			break;
+		case 68:
+			ds_p->scalestep = rw_scalestep = Div068(ds_p->scale2 - rw_scale);
+			break;
+		case 69:
+			ds_p->scalestep = rw_scalestep = Div069(ds_p->scale2 - rw_scale);
+			break;
+		case 70:
+			ds_p->scalestep = rw_scalestep = Div070(ds_p->scale2 - rw_scale);
+			break;
+		case 71:
+			ds_p->scalestep = rw_scalestep = Div071(ds_p->scale2 - rw_scale);
+			break;
+		case 72:
+			ds_p->scalestep = rw_scalestep = Div072(ds_p->scale2 - rw_scale);
+			break;
+		case 73:
+			ds_p->scalestep = rw_scalestep = Div073(ds_p->scale2 - rw_scale);
+			break;
+		case 74:
+			ds_p->scalestep = rw_scalestep = Div074(ds_p->scale2 - rw_scale);
+			break;
+		case 75:
+			ds_p->scalestep = rw_scalestep = Div075(ds_p->scale2 - rw_scale);
+			break;
+		case 76:
+			ds_p->scalestep = rw_scalestep = Div076(ds_p->scale2 - rw_scale);
+			break;
+		case 77:
+			ds_p->scalestep = rw_scalestep = Div077(ds_p->scale2 - rw_scale);
+			break;
+		case 78:
+			ds_p->scalestep = rw_scalestep = Div078(ds_p->scale2 - rw_scale);
+			break;
+		case 79:
+			ds_p->scalestep = rw_scalestep = Div079(ds_p->scale2 - rw_scale);
+			break;
+		case 80:
+			ds_p->scalestep = rw_scalestep = Div080(ds_p->scale2 - rw_scale);
+			break;
+		case 81:
+			ds_p->scalestep = rw_scalestep = Div081(ds_p->scale2 - rw_scale);
+			break;
+		case 82:
+			ds_p->scalestep = rw_scalestep = Div082(ds_p->scale2 - rw_scale);
+			break;
+		case 83:
+			ds_p->scalestep = rw_scalestep = Div083(ds_p->scale2 - rw_scale);
+			break;
+		case 84:
+			ds_p->scalestep = rw_scalestep = Div084(ds_p->scale2 - rw_scale);
+			break;
+		case 85:
+			ds_p->scalestep = rw_scalestep = Div085(ds_p->scale2 - rw_scale);
+			break;
+		case 86:
+			ds_p->scalestep = rw_scalestep = Div086(ds_p->scale2 - rw_scale);
+			break;
+		case 87:
+			ds_p->scalestep = rw_scalestep = Div087(ds_p->scale2 - rw_scale);
+			break;
+		case 88:
+			ds_p->scalestep = rw_scalestep = Div088(ds_p->scale2 - rw_scale);
+			break;
+		case 89:
+			ds_p->scalestep = rw_scalestep = Div089(ds_p->scale2 - rw_scale);
+			break;
+		case 90:
+			ds_p->scalestep = rw_scalestep = Div090(ds_p->scale2 - rw_scale);
+			break;
+		case 91:
+			ds_p->scalestep = rw_scalestep = Div091(ds_p->scale2 - rw_scale);
+			break;
+		case 92:
+			ds_p->scalestep = rw_scalestep = Div092(ds_p->scale2 - rw_scale);
+			break;
+		case 93:
+			ds_p->scalestep = rw_scalestep = Div093(ds_p->scale2 - rw_scale);
+			break;
+		case 94:
+			ds_p->scalestep = rw_scalestep = Div094(ds_p->scale2 - rw_scale);
+			break;
+		case 95:
+			ds_p->scalestep = rw_scalestep = Div095(ds_p->scale2 - rw_scale);
+			break;
+		case 96:
+			ds_p->scalestep = rw_scalestep = Div096(ds_p->scale2 - rw_scale);
+			break;
+		case 97:
+			ds_p->scalestep = rw_scalestep = Div097(ds_p->scale2 - rw_scale);
+			break;
+		case 98:
+			ds_p->scalestep = rw_scalestep = Div098(ds_p->scale2 - rw_scale);
+			break;
+		case 99:
+			ds_p->scalestep = rw_scalestep = Div099(ds_p->scale2 - rw_scale);
+			break;
+		case 100:
+			ds_p->scalestep = rw_scalestep = Div100(ds_p->scale2 - rw_scale);
+			break;
+		case 101:
+			ds_p->scalestep = rw_scalestep = Div101(ds_p->scale2 - rw_scale);
+			break;
+		case 102:
+			ds_p->scalestep = rw_scalestep = Div102(ds_p->scale2 - rw_scale);
+			break;
+		case 103:
+			ds_p->scalestep = rw_scalestep = Div103(ds_p->scale2 - rw_scale);
+			break;
+		case 104:
+			ds_p->scalestep = rw_scalestep = Div104(ds_p->scale2 - rw_scale);
+			break;
+		case 105:
+			ds_p->scalestep = rw_scalestep = Div105(ds_p->scale2 - rw_scale);
+			break;
+		case 106:
+			ds_p->scalestep = rw_scalestep = Div106(ds_p->scale2 - rw_scale);
+			break;
+		case 107:
+			ds_p->scalestep = rw_scalestep = Div107(ds_p->scale2 - rw_scale);
+			break;
+		case 108:
+			ds_p->scalestep = rw_scalestep = Div108(ds_p->scale2 - rw_scale);
+			break;
+		case 109:
+			ds_p->scalestep = rw_scalestep = Div109(ds_p->scale2 - rw_scale);
+			break;
+		case 110:
+			ds_p->scalestep = rw_scalestep = Div110(ds_p->scale2 - rw_scale);
+			break;
+		case 111:
+			ds_p->scalestep = rw_scalestep = Div111(ds_p->scale2 - rw_scale);
+			break;
+		case 112:
+			ds_p->scalestep = rw_scalestep = Div112(ds_p->scale2 - rw_scale);
+			break;
+		case 113:
+			ds_p->scalestep = rw_scalestep = Div113(ds_p->scale2 - rw_scale);
+			break;
+		case 114:
+			ds_p->scalestep = rw_scalestep = Div114(ds_p->scale2 - rw_scale);
+			break;
+		case 115:
+			ds_p->scalestep = rw_scalestep = Div115(ds_p->scale2 - rw_scale);
+			break;
+		case 116:
+			ds_p->scalestep = rw_scalestep = Div116(ds_p->scale2 - rw_scale);
+			break;
+		case 117:
+			ds_p->scalestep = rw_scalestep = Div117(ds_p->scale2 - rw_scale);
+			break;
+		case 118:
+			ds_p->scalestep = rw_scalestep = Div118(ds_p->scale2 - rw_scale);
+			break;
+		case 119:
+			ds_p->scalestep = rw_scalestep = Div119(ds_p->scale2 - rw_scale);
+			break;
+		case 120:
+			ds_p->scalestep = rw_scalestep = Div120(ds_p->scale2 - rw_scale);
+			break;
+		case 121:
+			ds_p->scalestep = rw_scalestep = Div121(ds_p->scale2 - rw_scale);
+			break;
+		case 122:
+			ds_p->scalestep = rw_scalestep = Div122(ds_p->scale2 - rw_scale);
+			break;
+		case 123:
+			ds_p->scalestep = rw_scalestep = Div123(ds_p->scale2 - rw_scale);
+			break;
+		case 124:
+			ds_p->scalestep = rw_scalestep = Div124(ds_p->scale2 - rw_scale);
+			break;
+		case 125:
+			ds_p->scalestep = rw_scalestep = Div125(ds_p->scale2 - rw_scale);
+			break;
+		case 126:
+			ds_p->scalestep = rw_scalestep = Div126(ds_p->scale2 - rw_scale);
+			break;
+		case 127:
+			ds_p->scalestep = rw_scalestep = Div127(ds_p->scale2 - rw_scale);
+			break;
+		case 128:
+			ds_p->scalestep = rw_scalestep = (ds_p->scale2 - rw_scale) >> 7;
+			break;
+		case 129:
+			ds_p->scalestep = rw_scalestep = Div129(ds_p->scale2 - rw_scale);
+			break;
+		case 130:
+			ds_p->scalestep = rw_scalestep = Div130(ds_p->scale2 - rw_scale);
+			break;
+		case 131:
+			ds_p->scalestep = rw_scalestep = Div131(ds_p->scale2 - rw_scale);
+			break;
+		case 132:
+			ds_p->scalestep = rw_scalestep = Div132(ds_p->scale2 - rw_scale);
+			break;
+		case 133:
+			ds_p->scalestep = rw_scalestep = Div133(ds_p->scale2 - rw_scale);
+			break;
+		case 134:
+			ds_p->scalestep = rw_scalestep = Div134(ds_p->scale2 - rw_scale);
+			break;
+		case 135:
+			ds_p->scalestep = rw_scalestep = Div135(ds_p->scale2 - rw_scale);
+			break;
+		case 136:
+			ds_p->scalestep = rw_scalestep = Div136(ds_p->scale2 - rw_scale);
+			break;
+		case 137:
+			ds_p->scalestep = rw_scalestep = Div137(ds_p->scale2 - rw_scale);
+			break;
+		case 138:
+			ds_p->scalestep = rw_scalestep = Div138(ds_p->scale2 - rw_scale);
+			break;
+		case 139:
+			ds_p->scalestep = rw_scalestep = Div139(ds_p->scale2 - rw_scale);
+			break;
+		case 140:
+			ds_p->scalestep = rw_scalestep = Div140(ds_p->scale2 - rw_scale);
+			break;
+		case 141:
+			ds_p->scalestep = rw_scalestep = Div141(ds_p->scale2 - rw_scale);
+			break;
+		case 142:
+			ds_p->scalestep = rw_scalestep = Div142(ds_p->scale2 - rw_scale);
+			break;
+		case 143:
+			ds_p->scalestep = rw_scalestep = Div143(ds_p->scale2 - rw_scale);
+			break;
+		case 144:
+			ds_p->scalestep = rw_scalestep = Div144(ds_p->scale2 - rw_scale);
+			break;
+		case 145:
+			ds_p->scalestep = rw_scalestep = Div145(ds_p->scale2 - rw_scale);
+			break;
+		case 146:
+			ds_p->scalestep = rw_scalestep = Div146(ds_p->scale2 - rw_scale);
+			break;
+		case 147:
+			ds_p->scalestep = rw_scalestep = Div147(ds_p->scale2 - rw_scale);
+			break;
+		case 148:
+			ds_p->scalestep = rw_scalestep = Div148(ds_p->scale2 - rw_scale);
+			break;
+		case 149:
+			ds_p->scalestep = rw_scalestep = Div149(ds_p->scale2 - rw_scale);
+			break;
+		case 150:
+			ds_p->scalestep = rw_scalestep = Div150(ds_p->scale2 - rw_scale);
+			break;
+		case 151:
+			ds_p->scalestep = rw_scalestep = Div151(ds_p->scale2 - rw_scale);
+			break;
+		case 152:
+			ds_p->scalestep = rw_scalestep = Div152(ds_p->scale2 - rw_scale);
+			break;
+		case 153:
+			ds_p->scalestep = rw_scalestep = Div153(ds_p->scale2 - rw_scale);
+			break;
+		case 154:
+			ds_p->scalestep = rw_scalestep = Div154(ds_p->scale2 - rw_scale);
+			break;
+		case 155:
+			ds_p->scalestep = rw_scalestep = Div155(ds_p->scale2 - rw_scale);
+			break;
+		case 156:
+			ds_p->scalestep = rw_scalestep = Div156(ds_p->scale2 - rw_scale);
+			break;
+		case 157:
+			ds_p->scalestep = rw_scalestep = Div157(ds_p->scale2 - rw_scale);
+			break;
+		case 158:
+			ds_p->scalestep = rw_scalestep = Div158(ds_p->scale2 - rw_scale);
+			break;
+		case 159:
+			ds_p->scalestep = rw_scalestep = Div159(ds_p->scale2 - rw_scale);
+			break;
+		case 160:
+			ds_p->scalestep = rw_scalestep = Div160(ds_p->scale2 - rw_scale);
+			break;
+		case 161:
+			ds_p->scalestep = rw_scalestep = Div161(ds_p->scale2 - rw_scale);
+			break;
+		case 162:
+			ds_p->scalestep = rw_scalestep = Div162(ds_p->scale2 - rw_scale);
+			break;
+		case 163:
+			ds_p->scalestep = rw_scalestep = Div163(ds_p->scale2 - rw_scale);
+			break;
+		case 164:
+			ds_p->scalestep = rw_scalestep = Div164(ds_p->scale2 - rw_scale);
+			break;
+		case 165:
+			ds_p->scalestep = rw_scalestep = Div165(ds_p->scale2 - rw_scale);
+			break;
+		case 166:
+			ds_p->scalestep = rw_scalestep = Div166(ds_p->scale2 - rw_scale);
+			break;
+		case 167:
+			ds_p->scalestep = rw_scalestep = Div167(ds_p->scale2 - rw_scale);
+			break;
+		case 168:
+			ds_p->scalestep = rw_scalestep = Div168(ds_p->scale2 - rw_scale);
+			break;
+		case 169:
+			ds_p->scalestep = rw_scalestep = Div169(ds_p->scale2 - rw_scale);
+			break;
+		case 170:
+			ds_p->scalestep = rw_scalestep = Div170(ds_p->scale2 - rw_scale);
+			break;
+		case 171:
+			ds_p->scalestep = rw_scalestep = Div171(ds_p->scale2 - rw_scale);
+			break;
+		case 172:
+			ds_p->scalestep = rw_scalestep = Div172(ds_p->scale2 - rw_scale);
+			break;
+		case 173:
+			ds_p->scalestep = rw_scalestep = Div173(ds_p->scale2 - rw_scale);
+			break;
+		case 174:
+			ds_p->scalestep = rw_scalestep = Div174(ds_p->scale2 - rw_scale);
+			break;
+		case 175:
+			ds_p->scalestep = rw_scalestep = Div175(ds_p->scale2 - rw_scale);
+			break;
+		case 176:
+			ds_p->scalestep = rw_scalestep = Div176(ds_p->scale2 - rw_scale);
+			break;
+		case 177:
+			ds_p->scalestep = rw_scalestep = Div177(ds_p->scale2 - rw_scale);
+			break;
+		case 178:
+			ds_p->scalestep = rw_scalestep = Div178(ds_p->scale2 - rw_scale);
+			break;
+		case 179:
+			ds_p->scalestep = rw_scalestep = Div179(ds_p->scale2 - rw_scale);
+			break;
+		case 180:
+			ds_p->scalestep = rw_scalestep = Div180(ds_p->scale2 - rw_scale);
+			break;
+		case 181:
+			ds_p->scalestep = rw_scalestep = Div181(ds_p->scale2 - rw_scale);
+			break;
+		case 182:
+			ds_p->scalestep = rw_scalestep = Div182(ds_p->scale2 - rw_scale);
+			break;
+		case 183:
+			ds_p->scalestep = rw_scalestep = Div183(ds_p->scale2 - rw_scale);
+			break;
+		case 184:
+			ds_p->scalestep = rw_scalestep = Div184(ds_p->scale2 - rw_scale);
+			break;
+		case 185:
+			ds_p->scalestep = rw_scalestep = Div185(ds_p->scale2 - rw_scale);
+			break;
+		case 186:
+			ds_p->scalestep = rw_scalestep = Div186(ds_p->scale2 - rw_scale);
+			break;
+		case 187:
+			ds_p->scalestep = rw_scalestep = Div187(ds_p->scale2 - rw_scale);
+			break;
+		case 188:
+			ds_p->scalestep = rw_scalestep = Div188(ds_p->scale2 - rw_scale);
+			break;
+		case 189:
+			ds_p->scalestep = rw_scalestep = Div189(ds_p->scale2 - rw_scale);
+			break;
+		case 190:
+			ds_p->scalestep = rw_scalestep = Div190(ds_p->scale2 - rw_scale);
+			break;
+		case 191:
+			ds_p->scalestep = rw_scalestep = Div191(ds_p->scale2 - rw_scale);
+			break;
+		case 192:
+			ds_p->scalestep = rw_scalestep = Div192(ds_p->scale2 - rw_scale);
+			break;
+		case 193:
+			ds_p->scalestep = rw_scalestep = Div193(ds_p->scale2 - rw_scale);
+			break;
+		case 194:
+			ds_p->scalestep = rw_scalestep = Div194(ds_p->scale2 - rw_scale);
+			break;
+		case 195:
+			ds_p->scalestep = rw_scalestep = Div195(ds_p->scale2 - rw_scale);
+			break;
+		case 196:
+			ds_p->scalestep = rw_scalestep = Div196(ds_p->scale2 - rw_scale);
+			break;
+		case 197:
+			ds_p->scalestep = rw_scalestep = Div197(ds_p->scale2 - rw_scale);
+			break;
+		case 198:
+			ds_p->scalestep = rw_scalestep = Div198(ds_p->scale2 - rw_scale);
+			break;
+		case 199:
+			ds_p->scalestep = rw_scalestep = Div199(ds_p->scale2 - rw_scale);
+			break;
+		case 200:
+			ds_p->scalestep = rw_scalestep = Div200(ds_p->scale2 - rw_scale);
+			break;
+		case 201:
+			ds_p->scalestep = rw_scalestep = Div201(ds_p->scale2 - rw_scale);
+			break;
+		case 202:
+			ds_p->scalestep = rw_scalestep = Div202(ds_p->scale2 - rw_scale);
+			break;
+		case 203:
+			ds_p->scalestep = rw_scalestep = Div203(ds_p->scale2 - rw_scale);
+			break;
+		case 204:
+			ds_p->scalestep = rw_scalestep = Div204(ds_p->scale2 - rw_scale);
+			break;
+		case 205:
+			ds_p->scalestep = rw_scalestep = Div205(ds_p->scale2 - rw_scale);
+			break;
+		case 206:
+			ds_p->scalestep = rw_scalestep = Div206(ds_p->scale2 - rw_scale);
+			break;
+		case 207:
+			ds_p->scalestep = rw_scalestep = Div207(ds_p->scale2 - rw_scale);
+			break;
+		case 208:
+			ds_p->scalestep = rw_scalestep = Div208(ds_p->scale2 - rw_scale);
+			break;
+		case 209:
+			ds_p->scalestep = rw_scalestep = Div209(ds_p->scale2 - rw_scale);
+			break;
+		case 210:
+			ds_p->scalestep = rw_scalestep = Div210(ds_p->scale2 - rw_scale);
+			break;
+		case 211:
+			ds_p->scalestep = rw_scalestep = Div211(ds_p->scale2 - rw_scale);
+			break;
+		case 212:
+			ds_p->scalestep = rw_scalestep = Div212(ds_p->scale2 - rw_scale);
+			break;
+		case 213:
+			ds_p->scalestep = rw_scalestep = Div213(ds_p->scale2 - rw_scale);
+			break;
+		case 214:
+			ds_p->scalestep = rw_scalestep = Div214(ds_p->scale2 - rw_scale);
+			break;
+		case 215:
+			ds_p->scalestep = rw_scalestep = Div215(ds_p->scale2 - rw_scale);
+			break;
+		case 216:
+			ds_p->scalestep = rw_scalestep = Div216(ds_p->scale2 - rw_scale);
+			break;
+		case 217:
+			ds_p->scalestep = rw_scalestep = Div217(ds_p->scale2 - rw_scale);
+			break;
+		case 218:
+			ds_p->scalestep = rw_scalestep = Div218(ds_p->scale2 - rw_scale);
+			break;
+		case 219:
+			ds_p->scalestep = rw_scalestep = Div219(ds_p->scale2 - rw_scale);
+			break;
+		case 220:
+			ds_p->scalestep = rw_scalestep = Div220(ds_p->scale2 - rw_scale);
+			break;
+		case 221:
+			ds_p->scalestep = rw_scalestep = Div221(ds_p->scale2 - rw_scale);
+			break;
+		case 222:
+			ds_p->scalestep = rw_scalestep = Div222(ds_p->scale2 - rw_scale);
+			break;
+		case 223:
+			ds_p->scalestep = rw_scalestep = Div223(ds_p->scale2 - rw_scale);
+			break;
+		case 224:
+			ds_p->scalestep = rw_scalestep = Div224(ds_p->scale2 - rw_scale);
+			break;
+		case 225:
+			ds_p->scalestep = rw_scalestep = Div225(ds_p->scale2 - rw_scale);
+			break;
+		case 226:
+			ds_p->scalestep = rw_scalestep = Div226(ds_p->scale2 - rw_scale);
+			break;
+		case 227:
+			ds_p->scalestep = rw_scalestep = Div227(ds_p->scale2 - rw_scale);
+			break;
+		case 228:
+			ds_p->scalestep = rw_scalestep = Div228(ds_p->scale2 - rw_scale);
+			break;
+		case 229:
+			ds_p->scalestep = rw_scalestep = Div229(ds_p->scale2 - rw_scale);
+			break;
+		case 230:
+			ds_p->scalestep = rw_scalestep = Div230(ds_p->scale2 - rw_scale);
+			break;
+		case 231:
+			ds_p->scalestep = rw_scalestep = Div231(ds_p->scale2 - rw_scale);
+			break;
+		case 232:
+			ds_p->scalestep = rw_scalestep = Div232(ds_p->scale2 - rw_scale);
+			break;
+		case 233:
+			ds_p->scalestep = rw_scalestep = Div233(ds_p->scale2 - rw_scale);
+			break;
+		case 234:
+			ds_p->scalestep = rw_scalestep = Div234(ds_p->scale2 - rw_scale);
+			break;
+		case 235:
+			ds_p->scalestep = rw_scalestep = Div235(ds_p->scale2 - rw_scale);
+			break;
+		case 236:
+			ds_p->scalestep = rw_scalestep = Div236(ds_p->scale2 - rw_scale);
+			break;
+		case 237:
+			ds_p->scalestep = rw_scalestep = Div237(ds_p->scale2 - rw_scale);
+			break;
+		case 238:
+			ds_p->scalestep = rw_scalestep = Div238(ds_p->scale2 - rw_scale);
+			break;
+		case 239:
+			ds_p->scalestep = rw_scalestep = Div239(ds_p->scale2 - rw_scale);
+			break;
+		case 240:
+			ds_p->scalestep = rw_scalestep = Div240(ds_p->scale2 - rw_scale);
+			break;
+		case 241:
+			ds_p->scalestep = rw_scalestep = Div241(ds_p->scale2 - rw_scale);
+			break;
+		case 242:
+			ds_p->scalestep = rw_scalestep = Div242(ds_p->scale2 - rw_scale);
+			break;
+		case 243:
+			ds_p->scalestep = rw_scalestep = Div243(ds_p->scale2 - rw_scale);
+			break;
+		case 244:
+			ds_p->scalestep = rw_scalestep = Div244(ds_p->scale2 - rw_scale);
+			break;
+		case 245:
+			ds_p->scalestep = rw_scalestep = Div245(ds_p->scale2 - rw_scale);
+			break;
+		case 246:
+			ds_p->scalestep = rw_scalestep = Div246(ds_p->scale2 - rw_scale);
+			break;
+		case 247:
+			ds_p->scalestep = rw_scalestep = Div247(ds_p->scale2 - rw_scale);
+			break;
+		case 248:
+			ds_p->scalestep = rw_scalestep = Div248(ds_p->scale2 - rw_scale);
+			break;
+		case 249:
+			ds_p->scalestep = rw_scalestep = Div249(ds_p->scale2 - rw_scale);
+			break;
+		case 250:
+			ds_p->scalestep = rw_scalestep = Div250(ds_p->scale2 - rw_scale);
+			break;
+		case 251:
+			ds_p->scalestep = rw_scalestep = Div251(ds_p->scale2 - rw_scale);
+			break;
+		case 252:
+			ds_p->scalestep = rw_scalestep = Div252(ds_p->scale2 - rw_scale);
+			break;
+		case 253:
+			ds_p->scalestep = rw_scalestep = Div253(ds_p->scale2 - rw_scale);
+			break;
+		case 254:
+			ds_p->scalestep = rw_scalestep = Div254(ds_p->scale2 - rw_scale);
+			break;
+		case 255:
+			ds_p->scalestep = rw_scalestep = Div255(ds_p->scale2 - rw_scale);
+			break;
+		case 256:
+			ds_p->scalestep = rw_scalestep = (ds_p->scale2 - rw_scale) >> 8;
+			break;
+		case 257:
+			ds_p->scalestep = rw_scalestep = Div257(ds_p->scale2 - rw_scale);
+			break;
+		case 258:
+			ds_p->scalestep = rw_scalestep = Div258(ds_p->scale2 - rw_scale);
+			break;
+		case 259:
+			ds_p->scalestep = rw_scalestep = Div259(ds_p->scale2 - rw_scale);
+			break;
+		case 260:
+			ds_p->scalestep = rw_scalestep = Div260(ds_p->scale2 - rw_scale);
+			break;
+		case 261:
+			ds_p->scalestep = rw_scalestep = Div261(ds_p->scale2 - rw_scale);
+			break;
+		case 262:
+			ds_p->scalestep = rw_scalestep = Div262(ds_p->scale2 - rw_scale);
+			break;
+		case 263:
+			ds_p->scalestep = rw_scalestep = Div263(ds_p->scale2 - rw_scale);
+			break;
+		case 264:
+			ds_p->scalestep = rw_scalestep = Div264(ds_p->scale2 - rw_scale);
+			break;
+		case 265:
+			ds_p->scalestep = rw_scalestep = Div265(ds_p->scale2 - rw_scale);
+			break;
+		case 266:
+			ds_p->scalestep = rw_scalestep = Div266(ds_p->scale2 - rw_scale);
+			break;
+		case 267:
+			ds_p->scalestep = rw_scalestep = Div267(ds_p->scale2 - rw_scale);
+			break;
+		case 268:
+			ds_p->scalestep = rw_scalestep = Div268(ds_p->scale2 - rw_scale);
+			break;
+		case 269:
+			ds_p->scalestep = rw_scalestep = Div269(ds_p->scale2 - rw_scale);
+			break;
+		case 270:
+			ds_p->scalestep = rw_scalestep = Div270(ds_p->scale2 - rw_scale);
+			break;
+		case 271:
+			ds_p->scalestep = rw_scalestep = Div271(ds_p->scale2 - rw_scale);
+			break;
+		case 272:
+			ds_p->scalestep = rw_scalestep = Div272(ds_p->scale2 - rw_scale);
+			break;
+		case 273:
+			ds_p->scalestep = rw_scalestep = Div273(ds_p->scale2 - rw_scale);
+			break;
+		case 274:
+			ds_p->scalestep = rw_scalestep = Div274(ds_p->scale2 - rw_scale);
+			break;
+		case 275:
+			ds_p->scalestep = rw_scalestep = Div275(ds_p->scale2 - rw_scale);
+			break;
+		case 276:
+			ds_p->scalestep = rw_scalestep = Div276(ds_p->scale2 - rw_scale);
+			break;
+		case 277:
+			ds_p->scalestep = rw_scalestep = Div277(ds_p->scale2 - rw_scale);
+			break;
+		case 278:
+			ds_p->scalestep = rw_scalestep = Div278(ds_p->scale2 - rw_scale);
+			break;
+		case 279:
+			ds_p->scalestep = rw_scalestep = Div279(ds_p->scale2 - rw_scale);
+			break;
+		case 280:
+			ds_p->scalestep = rw_scalestep = Div280(ds_p->scale2 - rw_scale);
+			break;
+		case 281:
+			ds_p->scalestep = rw_scalestep = Div281(ds_p->scale2 - rw_scale);
+			break;
+		case 282:
+			ds_p->scalestep = rw_scalestep = Div282(ds_p->scale2 - rw_scale);
+			break;
+		case 283:
+			ds_p->scalestep = rw_scalestep = Div283(ds_p->scale2 - rw_scale);
+			break;
+		case 284:
+			ds_p->scalestep = rw_scalestep = Div284(ds_p->scale2 - rw_scale);
+			break;
+		case 285:
+			ds_p->scalestep = rw_scalestep = Div285(ds_p->scale2 - rw_scale);
+			break;
+		case 286:
+			ds_p->scalestep = rw_scalestep = Div286(ds_p->scale2 - rw_scale);
+			break;
+		case 287:
+			ds_p->scalestep = rw_scalestep = Div287(ds_p->scale2 - rw_scale);
+			break;
+		case 288:
+			ds_p->scalestep = rw_scalestep = Div288(ds_p->scale2 - rw_scale);
+			break;
+		case 289:
+			ds_p->scalestep = rw_scalestep = Div289(ds_p->scale2 - rw_scale);
+			break;
+		case 290:
+			ds_p->scalestep = rw_scalestep = Div290(ds_p->scale2 - rw_scale);
+			break;
+		case 291:
+			ds_p->scalestep = rw_scalestep = Div291(ds_p->scale2 - rw_scale);
+			break;
+		case 292:
+			ds_p->scalestep = rw_scalestep = Div292(ds_p->scale2 - rw_scale);
+			break;
+		case 293:
+			ds_p->scalestep = rw_scalestep = Div293(ds_p->scale2 - rw_scale);
+			break;
+		case 294:
+			ds_p->scalestep = rw_scalestep = Div294(ds_p->scale2 - rw_scale);
+			break;
+		case 295:
+			ds_p->scalestep = rw_scalestep = Div295(ds_p->scale2 - rw_scale);
+			break;
+		case 296:
+			ds_p->scalestep = rw_scalestep = Div296(ds_p->scale2 - rw_scale);
+			break;
+		case 297:
+			ds_p->scalestep = rw_scalestep = Div297(ds_p->scale2 - rw_scale);
+			break;
+		case 298:
+			ds_p->scalestep = rw_scalestep = Div298(ds_p->scale2 - rw_scale);
+			break;
+		case 299:
+			ds_p->scalestep = rw_scalestep = Div299(ds_p->scale2 - rw_scale);
+			break;
+		case 300:
+			ds_p->scalestep = rw_scalestep = Div300(ds_p->scale2 - rw_scale);
+			break;
+		case 301:
+			ds_p->scalestep = rw_scalestep = Div301(ds_p->scale2 - rw_scale);
+			break;
+		case 302:
+			ds_p->scalestep = rw_scalestep = Div302(ds_p->scale2 - rw_scale);
+			break;
+		case 303:
+			ds_p->scalestep = rw_scalestep = Div303(ds_p->scale2 - rw_scale);
+			break;
+		case 304:
+			ds_p->scalestep = rw_scalestep = Div304(ds_p->scale2 - rw_scale);
+			break;
+		case 305:
+			ds_p->scalestep = rw_scalestep = Div305(ds_p->scale2 - rw_scale);
+			break;
+		case 306:
+			ds_p->scalestep = rw_scalestep = Div306(ds_p->scale2 - rw_scale);
+			break;
+		case 307:
+			ds_p->scalestep = rw_scalestep = Div307(ds_p->scale2 - rw_scale);
+			break;
+		case 308:
+			ds_p->scalestep = rw_scalestep = Div308(ds_p->scale2 - rw_scale);
+			break;
+		case 309:
+			ds_p->scalestep = rw_scalestep = Div309(ds_p->scale2 - rw_scale);
+			break;
+		case 310:
+			ds_p->scalestep = rw_scalestep = Div310(ds_p->scale2 - rw_scale);
+			break;
+		case 311:
+			ds_p->scalestep = rw_scalestep = Div311(ds_p->scale2 - rw_scale);
+			break;
+		case 312:
+			ds_p->scalestep = rw_scalestep = Div312(ds_p->scale2 - rw_scale);
+			break;
+		case 313:
+			ds_p->scalestep = rw_scalestep = Div313(ds_p->scale2 - rw_scale);
+			break;
+		case 314:
+			ds_p->scalestep = rw_scalestep = Div314(ds_p->scale2 - rw_scale);
+			break;
+		case 315:
+			ds_p->scalestep = rw_scalestep = Div315(ds_p->scale2 - rw_scale);
+			break;
+		case 316:
+			ds_p->scalestep = rw_scalestep = Div316(ds_p->scale2 - rw_scale);
+			break;
+		case 317:
+			ds_p->scalestep = rw_scalestep = Div317(ds_p->scale2 - rw_scale);
+			break;
+		case 318:
+			ds_p->scalestep = rw_scalestep = Div318(ds_p->scale2 - rw_scale);
+			break;
+		case 319:
+			ds_p->scalestep = rw_scalestep = Div319(ds_p->scale2 - rw_scale);
+			break;
+
+		default:
 		ds_p->scalestep = rw_scalestep = (ds_p->scale2 - rw_scale) / (stop - start);
+			break;
+		};
 	}
 	else
 	{
